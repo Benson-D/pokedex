@@ -19,7 +19,10 @@ function App() {
   }, []);
 
   return (
-    <PokeTable initialData={pokemon} initialColumns={pokeColumns} />
+    <>
+      <h1 className="text-3xl font-bold underline">Pokedex</h1>
+      <PokeTable initialData={pokemon} initialColumns={pokeColumns} />
+    </>
   );
 
 }

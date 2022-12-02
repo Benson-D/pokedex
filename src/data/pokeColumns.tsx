@@ -25,7 +25,14 @@ export const pokeColumns = [
         header: 'TYPE'
     }),
     columnHelper.accessor('image', {
-        header: 'APPEARANCE'
+        header: 'APPEARANCE',
+        cell: ({ getValue }) => {
+            return (
+                <div>
+                    <img src={getValue()} alt="pokemon-image"/>
+                </div>
+            )
+        }
     })
 ];
 

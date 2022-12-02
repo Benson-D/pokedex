@@ -46,7 +46,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
 
   return (
     <div>
-        <table>
+        <table className="w-full">
             <TableHeader headerGroups={table.getHeaderGroups}/>
             <TableBody rowModels={table.getRowModel}/>
         </table>
