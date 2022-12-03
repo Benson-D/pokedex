@@ -14,6 +14,7 @@ import TableBody from '../components/TableBody';
 import PaginateButton from '../components/PaginateButton';
 import ColGroup from '../components/ColGroup';
 import TableAdmin from '../components/TableAdmin';
+import useDebounce from '../hooks/useDebounce';
 
 interface PokeProps {
     initialData : PokeStats[];
@@ -34,6 +35,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
+    const searchValue = useDebounce(globalFilter);
 
     const table = useReactTable({
         data,
@@ -46,7 +48,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
         getCoreRowModel: getCoreRowModel(),
         state: {
             sorting,
-            globalFilter
+            globalFilter: searchValue
         },
         onGlobalFilterChange: setGlobalFilter,
         onSortingChange: setSorting,
