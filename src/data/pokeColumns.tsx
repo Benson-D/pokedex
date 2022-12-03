@@ -25,6 +25,9 @@ export const pokeColumns = [
     columnHelper.accessor('type', {
         header: 'TYPE'
     }),
+    columnHelper.accessor('experience', {
+        header: 'POWER LEVEL'
+    }),
     columnHelper.accessor('attacks', {
         header: 'TOTAL MOVES'
     }),

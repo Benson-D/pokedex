@@ -68,7 +68,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
             <TableAdmin table={table} globalFilter={globalFilter} handleFilter={handleFilter}/>
             <div className="overflow-auto">
                 <table className="w-full table-auto cursor-pointer min-w-[800px]">
-                    <ColGroup widths={[15, 22, 26, 22, 20]} />
+                    <ColGroup widths={[15, 17, 19, 15, 15, 19]} />
                     <TableHeader headerGroups={table.getHeaderGroups} />
                     <TableBody rowModels={table.getRowModel} />
                 </table>

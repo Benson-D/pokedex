@@ -61,6 +61,7 @@ class PokemonAPI {
                 id: String(pokeStats.id),
                 name: pokeStats.name,
                 image: pokeStats.sprites.front_default,
+                experience: String(pokeStats.base_experience),
                 attacks: String(pokeStats.moves.length),
                 type: types.join(', ')
                 }
