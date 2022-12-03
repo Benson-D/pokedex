@@ -11,7 +11,7 @@ export const pokeColumns = [
         header: 'NAME',
         cell: ({ getValue }) => {
             return (
-                <div>
+                <div className="text-left">
                     <a href={`https://pokemon.fandom.com/wiki/${getValue()}`} 
                        target="_blank"
                        rel="noopener noreferrer">
@@ -29,7 +29,9 @@ export const pokeColumns = [
         cell: ({ getValue }) => {
             return (
                 <div>
-                    <img src={getValue()} alt="pokemon-image"/>
+                    <img src={getValue()} 
+                         alt="pokemon-image" 
+                         className="my-0 mx-auto w-20 h-20" />
                 </div>
             )
         }

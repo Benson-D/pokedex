@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import './App.css'
 import PokemonAPI from './service/pokemonApi';
 import { PokeStats } from './interface/pokeInterface'
 import PokeTable from './pages/PokeTable';
@@ -9,20 +8,20 @@ function App() {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
 
   useEffect(() => {
-     async function getPokemon() {
-        const pokeData = await PokemonAPI.getKantoPokemon();   
-        const pokeStats = await PokemonAPI.loadPokemon(pokeData?.results);
+     async function renderPokemon() {
+        const pokeData = await PokemonAPI.getPokemon();   
+        const pokeStats = await PokemonAPI.loadPokemon(pokeData);
         setPokemon(pokeStats);
      }
 
-     getPokemon();
+     renderPokemon();
   }, []);
 
   return (
-    <>
+    <main className="p-12">
       <h1 className="text-3xl font-bold underline">Pokedex</h1>
       <PokeTable initialData={pokemon} initialColumns={pokeColumns} />
-    </>
+    </main>
   );
 
 }

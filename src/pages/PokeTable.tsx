@@ -17,10 +17,16 @@ interface PokeProps {
     initialColumns: ColumnDef<PokeStats, any>[];
 }
 
-function PokeTable({ initialData, initialColumns }: PokeProps) {
-    const data = useMemo(() => initialData, [initialData]);
 
-    console.log(data, 'testing');
+/** Main Pokemon Table that renders information provided by pokemon api,
+ * Utilizes tanstack table 
+ * 
+ * Props: 
+ *      initialData -> [{ name, id, image, type}, ...]
+ * @returns 
+ */
+function PokeTable({ initialData, initialColumns }: PokeProps) {
+    const data = useMemo<PokeStats[]>(() => initialData, [initialData]);
     const columns = useMemo<ColumnDef<PokeStats, any>[]>(() => initialColumns, []);
 
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -43,14 +49,14 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
     });
 
     const { previousPage, getCanPreviousPage, nextPage, getCanNextPage } = table;
-
-  return (
-    <div>
-        <table className="w-full">
-            <TableHeader headerGroups={table.getHeaderGroups}/>
-            <TableBody rowModels={table.getRowModel}/>
-        </table>
-            <section>
+    
+    return (
+        <div className="border-solid border border-black/[.18] max-w-screen-xl my-0 mx-auto p-2.5">
+            <table className="w-full table-auto cursor-pointer">
+                <TableHeader headerGroups={table.getHeaderGroups}/>
+                <TableBody rowModels={table.getRowModel}/>
+            </table>
+            <section className="flex justify-end my-2.5">
                 <PaginateButton navigate={previousPage}
                                 canNavigate={getCanPreviousPage}
                                 label='Previous'/>
@@ -58,8 +64,8 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
                                 canNavigate={getCanNextPage}
                                 label='Next'/>
             </section>
-    </div>
-  )
+        </div>
+    );
 }
 
 export default PokeTable;

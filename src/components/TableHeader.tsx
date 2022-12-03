@@ -9,10 +9,11 @@ function TableHeader({ headerGroups }
         {headerGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
-                    <th key={header.id}>
+                    <th key={header.id} className="p-2">
                         {header.isPlaceholder
                           ? null
-                          : ( <div onClick={header.column.getToggleSortingHandler()}>
+                          : ( <div onClick={header.column.getToggleSortingHandler()}
+                                   className="flex justify-between text-xs">
                                 {flexRender(header.column.columnDef.header, header.getContext())}
                                 {{
                                     asc: <BiSortUp />,
