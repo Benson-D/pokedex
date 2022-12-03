@@ -3,6 +3,7 @@ import PokemonAPI from './service/pokemonApi';
 import { PokeStats } from './interface/pokeInterface'
 import PokeTable from './pages/PokeTable';
 import { pokeColumns} from './data/pokeColumns';
+import PokeNav from './components/PokeNav';
 
 function App() {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
@@ -18,8 +19,8 @@ function App() {
   }, []);
 
   return (
-    <main className="p-12">
-      <h1 className="text-3xl font-bold underline">Pokedex</h1>
+    <main>
+      <PokeNav />
       <PokeTable initialData={pokemon} initialColumns={pokeColumns} />
     </main>
   );

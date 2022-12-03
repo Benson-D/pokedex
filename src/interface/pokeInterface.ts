@@ -1,9 +1,10 @@
 
 interface PokeStats {
-    id: number; 
+    id: string; 
     name: string;
     image: string;
-    type: string[];
+    attacks: string;
+    type: string;
 };
 
 export type {

@@ -58,10 +58,11 @@ class PokemonAPI {
                 const types = pokeStats.types.map((stat: any) => stat.type.name);
         
                 return {
-                id: pokeStats.id,
+                id: String(pokeStats.id),
                 name: pokeStats.name,
                 image: pokeStats.sprites.front_default,
-                type: types
+                attacks: String(pokeStats.moves.length),
+                type: types.join(', ')
                 }
             })
         );

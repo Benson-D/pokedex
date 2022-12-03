@@ -5,7 +5,8 @@ const columnHelper = createColumnHelper<PokeStats>();
 
 export const pokeColumns = [
     columnHelper.accessor('id', {
-        header: 'ORDER NO.'
+        header: 'ORDER NO.',
+        cell: ({ getValue }) => <span className="ml-3">{getValue()}</span>
     }),
     columnHelper.accessor('name', {
         header: 'NAME',
@@ -24,6 +25,9 @@ export const pokeColumns = [
     columnHelper.accessor('type', {
         header: 'TYPE'
     }),
+    columnHelper.accessor('attacks', {
+        header: 'TOTAL MOVES'
+    }),
     columnHelper.accessor('image', {
         header: 'APPEARANCE',
         cell: ({ getValue }) => {
@@ -31,7 +35,7 @@ export const pokeColumns = [
                 <div>
                     <img src={getValue()} 
                          alt="pokemon-image" 
-                         className="my-0 mx-auto w-20 h-20" />
+                         className="my-0 w-12 h-12" />
                 </div>
             )
         }
