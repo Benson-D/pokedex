@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios"; 
 import { PokeStats } from '../interface/pokeInterface';
 
-const POKEMON_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151%27`; 
+const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151%27`; 
 
 interface LoadPokemon {
     name: string;
@@ -16,12 +16,12 @@ interface LoadPokemon {
 class PokemonAPI {
 
     /**
-     * Render All pokemon and their urls
-     * @returns 
+     * Renders pokemon and their urls
+     * @returns {Promise<LoadPokemon[]>}
      */
-    static async getKantoPokemon(){
+    static async getPokemon(): Promise<LoadPokemon[]> {
         try{
-            return (await axios({url: POKEMON_URL})).data; 
+            return (await axios({url: MAIN_URL})).data?.results; 
         } catch(err){
             const error = err as AxiosError;
             console.error("Poke Error",error.message);
@@ -33,9 +33,9 @@ class PokemonAPI {
     /**
      * Renders individual pokemon statistics
      * @param url 
-     * @returns 
+     * @returns {Promise<Array<any>>}
      */
-    static async getPokemonData(url: string) {
+    static async getPokemonStats(url: string): Promise<Array<any>> {
         try {
             return (await axios({url})).data;
         } catch(err){
@@ -49,12 +49,12 @@ class PokemonAPI {
     /**
      * Reformats all pokemon rendering the data only needed 
      * @param data 
-     * @returns 
+     * @returns {Array[{id, name, image, type}, ...]} 
      */
     static async loadPokemon(data: LoadPokemon[]): Promise<PokeStats[]> {
         return await Promise.all(
             data.map( async pokemon => {
-                const pokeStats: any = await this.getPokemonData(pokemon.url);
+                const pokeStats: any = await this.getPokemonStats(pokemon.url);
                 const types = pokeStats.types.map((stat: any) => stat.type.name);
         
                 return {
