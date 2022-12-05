@@ -3,8 +3,16 @@ import React from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { PokeStats } from '../interface/pokeInterface';
 import Popup from './Popup';
+import TableSize from './TableSize';
 import useToggle from '../hooks/useToggle';
 
+/** Modifies the current table by display of info and length
+ * 
+ * Props: 
+ *    table: tan-stack
+ *    globalFilter: string
+ *    handleFilter: fn (filter, search)
+ */
 function TableAdmin({ table, globalFilter, handleFilter}
     : { 
       table: Table<PokeStats>;
@@ -18,23 +26,10 @@ function TableAdmin({ table, globalFilter, handleFilter}
         <Popup pageSize={table.getState().pagination.pageSize} 
                display={value}
                toggleValue={toggleValue}>
-          <ul className="py-1" role="none">
-                {[15, 25, 50, 75, 100].map(pageSize => (
-                  <li key={pageSize} 
-                      className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100" 
-                      role="menuitem" 
-                      tabIndex={-1}
-                      onClick={(): void => {
-                        table.setPageSize(Number(pageSize))
-                        toggleValue();
-                      }}>
-                        Show {pageSize}
-                  </li>
-                ))}
-          </ul>
+          <TableSize table={table} toggleValue={toggleValue} />
         </Popup>
         <div className="flex relative">
-            <AiOutlineSearch className="absolute top-2.5 left-3"/>
+            <AiOutlineSearch className="absolute top-2.5 left-3" />
             <input className="shadow appearance-none border rounded w-full py-2 pl-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                    placeholder="Search Pokemon" 
                    value={globalFilter ?? ''}
