@@ -2,18 +2,19 @@ import { useState } from 'react';
 import { PokeStats } from '../interface/pokeInterface';
 
 /**
- * Custom Hook that returns an individual pokemon to battle
+ * Custom Hook that returns an individual pokemon to battle'
+ *
  */
-function usePokemon(_pokemon: PokeStats[]) {
-    const [active, setActive] = useState(0);
+function usePokemon() {
+    const [active, setActive] = useState<number>();
 
     const selectPokemon = (pokemon: PokeStats[]) => {
-        setActive(Math.floor(Math.random() * pokemon.length));
+        if (!pokemon.length) return;
 
-        return pokemon[active as number];
+        setActive(Math.floor(Math.random() * pokemon?.length));
     }
 
-    return [selectPokemon];
+    return [active, selectPokemon];
 };
 
 export default usePokemon
