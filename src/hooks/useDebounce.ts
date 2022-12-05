@@ -2,9 +2,7 @@ import { useState, useEffect } from "react";
 
 /**
  * Custom Hook allows you to debounce fast changing values, e.c. search bar
- * @param {string} value 
- * @param {number} delay 
- * @returns {string}
+ * 
  */
 function useDebounce(value: string, delay?: number): string {
     const [debounce, setDebounced] = useState<string>(value);
