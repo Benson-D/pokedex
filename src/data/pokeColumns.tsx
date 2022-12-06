@@ -3,6 +3,7 @@ import { PokeStats } from '../interface/pokeInterface';
 
 const columnHelper = createColumnHelper<PokeStats>();
 
+//Main Columns and row details for Poke Tables
 export const pokeColumns = [
     columnHelper.accessor('id', {
         header: 'ORDER NO.',

@@ -1,6 +1,12 @@
 import { flexRender, RowModel } from "@tanstack/react-table"
 import { PokeStats } from '../interface/pokeInterface';
 
+/** Main Table Body for Poke Table
+ * 
+ * Props: 
+ *      rowModels: {tanstack table}
+ * State: none
+ */
 function TableBody({ rowModels }
     : { rowModels: () => RowModel<PokeStats>}) {
 

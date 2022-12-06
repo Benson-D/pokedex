@@ -21,13 +21,15 @@ interface PokeProps {
     initialColumns: ColumnDef<PokeStats, any>[];
 }
 
-
 /** Main Pokemon Table that renders information provided by pokemon api,
  * Utilizes tanstack table 
  * 
  * Props: 
- *      initialData -> [{ name, id, image, type}, ...]
- * @returns 
+ *      initialData: [{ name, id, experience, image, type}, ...]
+ *      initialColumns: {tanstack table}
+ * State: 
+ *      sorting: array
+ *      globalFilter: string
  */
 function PokeTable({ initialData, initialColumns }: PokeProps) {
     const data = useMemo<PokeStats[]>(() => initialData, [initialData]);

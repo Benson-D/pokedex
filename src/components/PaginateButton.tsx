@@ -1,3 +1,13 @@
+/** Pagination Button Navigation,
+ * handles from previous to next page in table, 
+ * if table has reached it's limit will disable
+ * 
+ * Props: 
+ *    navigate: callback
+ *    canNavigate: boolean
+ *    label: string
+ * State: none
+ */
 function PaginateButton({navigate, canNavigate, label}
     : { navigate: () => void; canNavigate: () => boolean; label: string;}) {
   return (

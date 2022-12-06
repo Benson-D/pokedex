@@ -9,6 +9,13 @@ interface PokeProps {
     initialColumns: ColumnDef<PokeStats, any>[];
 }
 
+/** Poke Routes to navigate between pages
+ * 
+ * Props: 
+*      initialData: [{ name, id, experience, image, type}, ...]
+ *      initialColumns: {tanstack table}
+ * State: none
+ */
 function PokeRoutes({ initialData, initialColumns}: PokeProps) {
   return (
     <Routes>

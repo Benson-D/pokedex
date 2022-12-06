@@ -6,7 +6,10 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
  * 
  * Props: 
  *      pageSize: number
- *      
+ *      display: boolean
+ *      toggleValue: callback
+ *      children: JSX.Element
+ * State: none     
  */
 function Popup({ pageSize, display, toggleValue, children}
     : { pageSize: number; 

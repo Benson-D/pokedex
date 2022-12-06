@@ -2,6 +2,14 @@ import { flexRender, HeaderGroup } from '@tanstack/react-table';
 import { BiSortUp, BiSortDown } from 'react-icons/bi';
 import { PokeStats } from '../interface/pokeInterface';
 
+/** Table Header for Poke Table,
+ * displays column categories, 
+ * if table can be sorted will display icon direction of sort
+ * 
+ * Props: 
+ *    headerGroups: {tanstack table}
+ * State: none
+ */
 function TableHeader({ headerGroups }
   : { headerGroups: () => HeaderGroup<PokeStats>[]}) {
   return (

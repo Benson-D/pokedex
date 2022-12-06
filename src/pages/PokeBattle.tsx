@@ -3,6 +3,17 @@ import Player from '../components/Player';
 import { PokeStats } from '../interface/pokeInterface';
 import { selectPlayers } from '../utilities/helper';
 
+/** Poke Battle Page, 
+ * when a start button has been initiated will load up pokemon,
+ * each player will have 3 pokemon to battle with 
+ * 
+ * Props: 
+ *     pokemon: [{id, name, experience, image, type}]
+ * State: 
+ *    playerOne: PokeStats[]
+ *    playerTwo: PokeState[]
+ *    loadPlayer: boolean
+ */
 function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
   const [playerOne, setPlayerOne] = useState<PokeStats[]>([]);
   const [playerTwo, setPlayerTwo] = useState<PokeStats[]>([]);
