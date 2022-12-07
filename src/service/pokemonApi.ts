@@ -11,7 +11,6 @@ interface LoadPokemon {
 /**  API Class 
  * 
  * Static class that utilizes methods to get list of Pokemon
- * 
 */
 class PokemonAPI {
 
@@ -19,7 +18,7 @@ class PokemonAPI {
      * Renders pokemon and their urls
      * @returns {Promise<LoadPokemon[]>}
      */
-    static async getPokemon(): Promise<LoadPokemon[]> {
+    public static async getPokemon(): Promise<LoadPokemon[]> {
         try{
             return (await axios({url: MAIN_URL})).data?.results; 
         } catch(err){
@@ -35,7 +34,7 @@ class PokemonAPI {
      * @param url 
      * @returns {Promise<Array<any>>}
      */
-    static async getPokemonStats(url: string): Promise<Array<any>> {
+    private static async getPokemonStats(url: string): Promise<Array<any>> {
         try {
             return (await axios({url})).data;
         } catch(err){
@@ -49,9 +48,9 @@ class PokemonAPI {
     /**
      * Reformats all pokemon rendering the data only needed 
      * @param data 
-     * @returns {Array[{id, name, image, type}, ...]} 
+     * @returns {Promise<PokeStats[]>} 
      */
-    static async loadPokemon(data: LoadPokemon[]): Promise<PokeStats[]> {
+    public static async loadPokemon(data: LoadPokemon[]): Promise<PokeStats[]> {
         return await Promise.all(
             data.map( async pokemon => {
                 const pokeStats: any = await this.getPokemonStats(pokemon.url);

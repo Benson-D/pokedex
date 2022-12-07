@@ -13,8 +13,9 @@ export const pokeColumns = [
         header: 'NAME',
         cell: ({ getValue }) => {
             return (
-                <div className="text-left">
-                    <a href={`https://pokemon.fandom.com/wiki/${getValue()}`} 
+                <div className="text-left ml-2">
+                    <a className="text-sky-700 hover:text-sky-500 capitalize"
+                       href={`https://pokemon.fandom.com/wiki/${getValue()}`} 
                        target="_blank"
                        rel="noopener noreferrer">
                         {getValue()}
@@ -24,13 +25,16 @@ export const pokeColumns = [
         }
     }),
     columnHelper.accessor('type', {
-        header: 'TYPE'
+        header: 'TYPE',
+        cell: ({ getValue }) => <span className="ml-1">{getValue()}</span>
     }),
     columnHelper.accessor('experience', {
-        header: 'POWER LEVEL'
+        header: 'POWER LEVEL',
+        cell: ({ getValue }) => <span className="ml-2">{getValue()}</span>
     }),
     columnHelper.accessor('attacks', {
-        header: 'TOTAL MOVES'
+        header: 'TOTAL MOVES',
+        cell: ({ getValue }) => <span className="ml-2">{getValue()}</span>
     }),
     columnHelper.accessor('image', {
         header: 'APPEARANCE',
