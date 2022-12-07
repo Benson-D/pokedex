@@ -1,4 +1,6 @@
+import { useRef, useCallback } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
+import useClickOutside from '../hooks/useClickOutside';
 
 /** Popup Component Display
  * 
@@ -11,16 +13,22 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
  *      children: JSX.Element
  * State: none     
  */
-function Popup({ pageSize, display, toggleValue, children}
+function Popup({ pageSize, display, toggleValue, children }
     : { pageSize: number; 
         display: boolean;
-        toggleValue: () => void;
+        toggleValue: (value?: boolean) => void;
         children: JSX.Element; }) {
 
-    const handlePopUp = (): void => toggleValue();
+    const handlePopUp = (): void => toggleValue(); 
+
+    //Handle Outside Click Events
+    const outsideEvent = useRef<HTMLElement>(null);
+    const handleOutside = useCallback(() => { toggleValue(false) }, []);
+
+    useClickOutside(outsideEvent, handleOutside);
 
     return (
-        <section className="relative">
+        <section className="relative" ref={outsideEvent}>
             <div>
                 <button onClick={handlePopUp}
                         type="button" 

@@ -11,7 +11,7 @@ import { PokeStats } from '../interface/pokeInterface';
  */
 function TableSize({ table, toggleValue }
     : { table: Table<PokeStats>; 
-        toggleValue: () => void }) {
+        toggleValue: (value?: boolean) => void }) {
 
   const handleTableSize = (pageSize: number): void => {
     table.setPageSize(Number(pageSize))
