@@ -6,7 +6,13 @@ import { pokeColumns} from './data/pokeColumns';
 import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
 
-function App() {
+/** Main Application that renders Pokedex,
+ * 
+ * Props: none
+ * State: 
+ *     pokemon: [ {id, name, type, attacks, image, experience}, ...]
+ */
+function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
 
   useEffect(() => {

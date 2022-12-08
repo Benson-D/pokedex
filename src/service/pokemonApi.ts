@@ -8,8 +8,7 @@ interface LoadPokemon {
     url: string;
 };
 
-/**  API Class 
- * 
+/**  
  * Static class that utilizes methods to get list of Pokemon
 */
 class PokemonAPI {

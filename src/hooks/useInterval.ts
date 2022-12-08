@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 /**
  * Utilizes setInterval with custom hooks
  * @param callback 
- * @param delay 
+ * @param {number} delay 
  */
 function useInterval(callback: () => void, delay: number | null): void {
     const savedCallback = useRef(callback);

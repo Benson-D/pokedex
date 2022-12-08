@@ -13,10 +13,10 @@ interface PokeProps {
  * 
  * Props: 
 *      initialData: [{ name, id, experience, image, type}, ...]
- *      initialColumns: {tanstack table}
+ *     initialColumns: {tanstack table}
  * State: none
  */
-function PokeRoutes({ initialData, initialColumns}: PokeProps) {
+function PokeRoutes({ initialData, initialColumns}: PokeProps): JSX.Element {
   return (
     <Routes>
         <Route path="/" element={<PokeTable initialData={initialData} initialColumns={initialColumns} />} />

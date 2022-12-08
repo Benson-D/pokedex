@@ -1,4 +1,9 @@
 
+/**
+ * An individual set of data used for each pokemon, 
+ * modified from poke api for this application
+ * @interface
+ */
 interface PokeStats {
     id: string; 
     name: string;
