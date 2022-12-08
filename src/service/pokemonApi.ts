@@ -3,7 +3,11 @@ import { PokeStats } from '../interface/pokeInterface';
 
 const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151%27`; 
 
-interface LoadPokemon {
+/**
+ * General output from an individual pokemon 
+ * @interface
+ */
+interface GetPokemonOutput {
     name: string;
     url: string;
 };
@@ -15,9 +19,9 @@ class PokemonAPI {
 
     /**
      * Renders pokemon and their urls
-     * @returns {Promise<LoadPokemon[]>}
+     * @returns {Promise<GetPokemonOutput[]>}
      */
-    public static async getPokemon(): Promise<LoadPokemon[]> {
+    public static async getPokemon(): Promise<GetPokemonOutput[]> {
         try{
             return (await axios({url: MAIN_URL})).data?.results; 
         } catch(err){
@@ -30,7 +34,7 @@ class PokemonAPI {
 
     /**
      * Renders individual pokemon statistics
-     * @param url 
+     * @param {string} url 
      * @returns {Promise<Array<any>>}
      */
     private static async getPokemonStats(url: string): Promise<Array<any>> {
@@ -49,7 +53,7 @@ class PokemonAPI {
      * @param data 
      * @returns {Promise<PokeStats[]>} 
      */
-    public static async loadPokemon(data: LoadPokemon[]): Promise<PokeStats[]> {
+    public static async loadPokemon(data: GetPokemonOutput[]): Promise<PokeStats[]> {
         return await Promise.all(
             data.map( async pokemon => {
                 const pokeStats: any = await this.getPokemonStats(pokemon.url);
