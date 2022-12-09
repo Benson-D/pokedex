@@ -4,7 +4,8 @@ import { PokeStats } from '../interface/pokeInterface';
  * with specified data
  * 
  */
-function Player({ pokemon }: { pokemon: PokeStats }) {
+function Player({ pokemon }: { pokemon: PokeStats; }) {
+
   return (
     <section className="max-w-sm rounded shadow shadow-blue-800 mx-10 p-10">
       <h3 className="font-bold text-xl text-center mb-2">

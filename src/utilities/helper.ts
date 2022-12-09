@@ -1,20 +1,20 @@
 /**
- * Helper function that randomizes an array and return the first three items
- * @param arr 
+ * Helper function that randomizes an array and returns a new set of an array
+ * @param {Array} arr 
  * @returns {Array}
  */
-const getThreePlayers = <T>(arr: T[]): T[] => {
-    return arr.sort(() => 0.5 - Math.random()).splice(0, 3);
+const getPlayers = <T>(arr: T[], num: number): T[] => {
+    return arr.sort(() => 0.5 - Math.random()).splice(0, num);
 }
 
 /**
- * Select three random items for an individual player
- * @param arr 
- * @returns 
+ * Selects random items from an array for two players
+ * @param {Array} arr 
+ * @returns {Array}
  */
 function selectPlayers<T>(arr: T[]): T[][] {
-    const playerOne = getThreePlayers(arr);
-    const playerTwo = getThreePlayers(arr);
+    const playerOne = getPlayers(arr, 5);
+    const playerTwo = getPlayers(arr, 5);
 
     return [playerOne, playerTwo];
 };

@@ -23,6 +23,7 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
   const [loadPlayer, setLoadPlayer] = useState(false);
   const [activePokemon, setActivePokemon] = useState(0);
   const [status, setStatus] = useState(false);
+  const [winner, setWinner] = useState('');
 
   const loadPlayers = () => {
     const [setOne, setTwo] = selectPlayers(pokemon);
@@ -33,14 +34,15 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
 
   const battle = () => {
     if (activePokemon !== playerOne.length - 1) {
-      setActivePokemon(current => current + 1);
+      setActivePokemon(current => current + 1)
     } else {
       setActivePokemon(0);
-      setStatus(false);
+      setStatus(false); 
+      setWinner('');
     }
   }
 
-  useInterval(battle, status === false ? null : 2000);
+  useInterval(battle, status === false ? null : 1500);
 
   return (
     <section>
