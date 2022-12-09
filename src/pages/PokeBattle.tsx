@@ -46,7 +46,7 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
 
   return (
     <section>
-        <h1 className="text-center font-medium text-base leading-4">
+        <h1 className="text-center font-medium text-base leading-4 mt-10">
           Let's test your skills to be a pokemon master
         </h1>
         <div className="mt-10 flex justify-center">
