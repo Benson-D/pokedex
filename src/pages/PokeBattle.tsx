@@ -3,7 +3,7 @@ import Button from '../components/Button';
 import Player from '../components/Player';
 import useInterval from '../hooks/useInterval';
 import { PokeStats } from '../interface/pokeInterface';
-import { selectPlayers } from '../utilities/helper';
+import { selectPlayers, determineWinner } from '../utilities/helper';
 import ThemeContext from '../context/ThemeContext';
 
 /** Poke Battle Page, 
@@ -31,18 +31,18 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
 
   const loadPlayers = () => {
     const [setOne, setTwo] = selectPlayers(pokemon);
+    setActivePokemon(0);
     setPlayerOne(setOne);
     setPlayerTwo(setTwo)
     setLoadPlayer(true);
+    setWinner(determineWinner(setOne, setTwo));
   }
 
   const battle = () => {
     if (activePokemon !== playerOne.length - 1) {
       setActivePokemon(current => current + 1)
     } else {
-      setActivePokemon(0);
       setStatus(false); 
-      setWinner('');
     }
   }
 
@@ -65,8 +65,15 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
               <Player pokemon={playerOne[activePokemon]} /> 
               <Player pokemon={playerTwo[activePokemon]} /> 
             </div>
-            <div className="mt-20">
-              <Button handler={() => setStatus(true)} title="Battle" />
+            {activePokemon === playerOne.length -1 
+              && (<p className={`mt-10 font-bold text-xl
+              ${dark ? 'text-white' : 'text-black'}`}>
+                {winner.toUpperCase()} Wins!
+                </p>)}
+            <div className="mt-10 mb-4">
+              <Button handler={() => {
+                setActivePokemon(0);
+                setStatus(true)}} title="Battle" />
             </div>
           </div>
         }

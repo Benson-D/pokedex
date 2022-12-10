@@ -1,3 +1,5 @@
+import { PokeStats } from "../interface/pokeInterface";
+
 /**
  * Helper function that randomizes an array and returns a new set of an array
  * @param {Array} arr 
@@ -21,4 +23,26 @@ function selectPlayers<T>(arr: T[]): T[][] {
     return [playerOne, playerTwo];
 };
 
-export { selectPlayers };
+/**
+ * Helper function that determine the total base experience of each pokemon
+ * @param {Array} arr 
+ * @returns 
+ */
+const getExperienceTotal = (arr: PokeStats[]): number => arr.reduce((acc, pokemon) =>
+    acc + Number(pokemon.experience), 0);
+
+/**
+ * Determines a players total based experience of pokemon, 
+ * returns a winners results
+ * @param {Array} arr1 
+ * @param {Array} arr2 
+ * @returns 
+ */
+function determineWinner(arr1: PokeStats[], arr2: PokeStats[]): string {
+    const playerOneResults = getExperienceTotal(arr1);
+    const playerTwoResults = getExperienceTotal(arr2);
+
+    return playerOneResults > playerTwoResults ? 'player 1' : 'player 2';
+}
+
+export { selectPlayers, determineWinner };
