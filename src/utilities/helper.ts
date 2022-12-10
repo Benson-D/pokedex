@@ -4,7 +4,9 @@
  * @returns {Array}
  */
 const getPlayers = <T>(arr: T[], num: number): T[] => {
-    return arr.sort(() => 0.5 - Math.random()).splice(0, num);
+    const sortedPlayers = [...arr];
+
+    return sortedPlayers.sort(() => 0.5 - Math.random()).splice(0, num);
 }
 
 /**

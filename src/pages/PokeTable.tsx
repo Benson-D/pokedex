@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useContext } from 'react'
 import { 
     useReactTable, 
     ColumnDef, 
@@ -15,6 +15,7 @@ import PaginateButton from '../components/PaginateButton';
 import ColGroup from '../components/ColGroup';
 import TableAdmin from '../components/TableAdmin';
 import useDebounce from '../hooks/useDebounce';
+import ThemeContext from '../context/ThemeContext';
 
 interface PokeProps {
     initialData : PokeStats[];
@@ -38,6 +39,8 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
     const searchValue = useDebounce(globalFilter);
+
+    const { dark } = useContext(ThemeContext);
 
     const table = useReactTable({
         data,
@@ -69,7 +72,8 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
         <div className="border-solid border border-black/[.18] max-w-screen-xl my-0 mx-auto p-12 pb-6">
             <TableAdmin table={table} globalFilter={globalFilter} handleFilter={handleFilter}/>
             <div className="overflow-auto">
-                <table className="w-full table-auto cursor-pointer min-w-[800px]">
+                <table className={`w-full table-auto cursor-pointer min-w-[800px]
+                       ${dark ? 'bg-slate-700' : ''}`}>
                     <ColGroup widths={[15, 17, 19, 15, 15, 19]} />
                     <TableHeader headerGroups={table.getHeaderGroups} />
                     <TableBody rowModels={table.getRowModel} />

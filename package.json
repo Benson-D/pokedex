@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build-css": "npx tailwindcss -i ./src/index.css -o ./src/styles/output.css --watch"
   },
   "dependencies": {
     "@tanstack/react-table": "^8.7.0",

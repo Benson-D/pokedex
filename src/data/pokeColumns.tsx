@@ -13,7 +13,7 @@ export const pokeColumns = [
         header: 'NAME',
         cell: ({ getValue }) => {
             return (
-                <div className="text-left ml-2">
+                <div className="poke-link text-left ml-2">
                     <a className="text-sky-700 hover:text-sky-500 capitalize"
                        href={`https://pokemon.fandom.com/wiki/${getValue()}`} 
                        target="_blank"
@@ -33,7 +33,9 @@ export const pokeColumns = [
                         {badgeType.map((type, idx:number) => (
                         <span key={idx} 
                               className={`poke-${type} 
-                              py-1.5 px-4 mr-2 rounded`}>{type}</span>
+                              py-1.5 px-4 mr-2 rounded text-black`}>
+                                {type}
+                        </span>
                         ))}
                     </div>
             

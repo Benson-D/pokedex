@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Button from '../components/Button';
 import Player from '../components/Player';
 import useInterval from '../hooks/useInterval';
 import { PokeStats } from '../interface/pokeInterface';
@@ -51,12 +52,8 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
         </h1>
         <div className="mt-10 flex justify-center">
           {pokemon.length > 0 && (
-            <button className="bg-red-200 py-2 px-6 hover:bg-red-400 rounded" 
-                    onClick={loadPlayers}>
-              Start
-            </button>
+            <Button handler={loadPlayers} title="Start" />
           )}
-
         </div>
         {loadPlayer && 
           <div className="flex flex-col items-center">
@@ -65,10 +62,7 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
               <Player pokemon={playerTwo[activePokemon]} /> 
             </div>
             <div className="mt-20">
-              <button className="bg-red-200 py-4 px-8 hover:bg-red-400 rounded"
-                      onClick={() => setStatus(true)}>
-                Battle
-              </button>
+              <Button handler={() => setStatus(true)} title="Battle" />
             </div>
           </div>
         }

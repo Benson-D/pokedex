@@ -1,6 +1,8 @@
+import { useContext } from 'react';
 import { flexRender, HeaderGroup } from '@tanstack/react-table';
 import { BiSortUp, BiSortDown } from 'react-icons/bi';
 import { PokeStats } from '../interface/pokeInterface';
+import ThemeContext from '../context/ThemeContext';
 
 /** Table Header for Poke Table,
  * displays column categories, 
@@ -12,6 +14,8 @@ import { PokeStats } from '../interface/pokeInterface';
  */
 function TableHeader({ headerGroups }
   : { headerGroups: () => HeaderGroup<PokeStats>[]}) {
+  
+  const { dark } = useContext(ThemeContext);
   return (
     <thead>
         {headerGroups().map(headerGroup => (
@@ -21,7 +25,8 @@ function TableHeader({ headerGroups }
                         {header.isPlaceholder
                           ? null
                           : ( <div onClick={header.column.getToggleSortingHandler()}
-                                   className="flex justify-between text-xs">
+                                   className={`flex justify-between text-xs 
+                                   ${dark ? 'text-white': 'text-black'}`}>
                                 {flexRender(header.column.columnDef.header, header.getContext())}
                                 {{
                                     asc: <BiSortUp />,

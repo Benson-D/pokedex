@@ -1,5 +1,7 @@
+import { useContext } from "react";
 import { flexRender, RowModel } from "@tanstack/react-table"
 import { PokeStats } from '../interface/pokeInterface';
+import ThemeContext from "../context/ThemeContext";
 
 /** Main Table Body for Poke Table
  * 
@@ -9,13 +11,18 @@ import { PokeStats } from '../interface/pokeInterface';
  */
 function TableBody({ rowModels }
     : { rowModels: () => RowModel<PokeStats>}) {
+    
+  const { dark } = useContext(ThemeContext); 
 
   return (
     <tbody>
         {rowModels().rows.map(row => (
-            <tr key={row.id} className="odd:bg-sky-100 hover:bg-sky-200">
+            <tr key={row.id} className={dark 
+                ? 'odd:bg-slate-600 hover:bg-slate-500' 
+                : 'odd:bg-sky-100 hover:bg-sky-200'}>
                 {row.getVisibleCells().map(cell => (
-                    <td key={cell.id} className="text-xs">
+                    <td key={cell.id} className={`text-xs 
+                        ${dark ? 'text-white' : 'text-black'}`}>
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                 ))}

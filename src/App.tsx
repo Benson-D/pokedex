@@ -5,6 +5,8 @@ import { PokeStats } from './interface/pokeInterface'
 import { pokeColumns} from './data/pokeColumns';
 import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
+import useToggle from './hooks/useToggle';
+import ThemeContext from './context/ThemeContext';
 
 /** Main Application that renders Pokedex,
  * 
@@ -14,6 +16,7 @@ import PokeRoutes from './routes/PokeRoutes';
  */
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
+  const [dark, setDark] = useToggle();
 
   useEffect(() => {
      async function renderPokemon() {
@@ -25,13 +28,21 @@ function App(): JSX.Element {
      renderPokemon();
   }, []);
 
+  useEffect(() => {
+    document.body.className = dark 
+          ? 'poke-dark bg-slate-800' 
+          : 'poke-light bg-white';
+  }, [dark]);
+
   return (
-    <BrowserRouter>
-      <main>
-        <PokeNav />
-        <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
-      </main>
-    </BrowserRouter>
+    <ThemeContext.Provider value={{dark}}>
+      <BrowserRouter>
+        <main>
+          <PokeNav setMode={setDark} />
+          <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
+        </main>
+      </BrowserRouter>
+    </ThemeContext.Provider>
 
   );
 

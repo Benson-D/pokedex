@@ -1,38 +1,53 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CgPokemon } from 'react-icons/cg';
 import { FiMenu } from 'react-icons/fi';
+import { MdOutlineDarkMode } from 'react-icons/md';
+import { BsSun } from 'react-icons/bs';
 import useToggle from '../hooks/useToggle';
+import Header from './Header';
+import Button from './Button';
+import ThemeContext from '../context/ThemeContext';
 
-/** Nav Bar, navigates between pages
+/** Nav Bar, navigates between pages,
+ * Responsive for mobile and desktop
  * 
  * Props: none
  * State: none
  */
-function PokeNav() {
+function PokeNav({ setMode }: { setMode: () => void}) {
   const [value, toggleValue] = useToggle();
+  const { dark } = useContext(ThemeContext);
 
   return (
-    <nav className="bg-red-400">
+    <nav className={dark ? 'bg-gray-900' : 'bg-red-400'}>
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
+          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+              <Button title={dark 
+                ? <BsSun className="text-white w-5 h-5"/> 
+                : <MdOutlineDarkMode className="text-white w-5 h-5" />}
+                      className="rounded-md p-2 hover:bg-red-500"
+                      handler={() => setMode()} />
+          </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-
             <div className="flex flex-shrink-0 items-center">
-                <div className="block lg:hidden flex  ml-5">
-                  <h1 className="font-semibold text-xl tracking-tight">Pokemon</h1>
-                  <CgPokemon className="w-6 h-6 text-red-400 bg-red-200 rounded-full ml-1" />
+                <div className="block lg:hidden flex ml-1">
+                  <Header />
                 </div>
-                <div className="hidden lg:block lg:flex">
-                  <h1 className="font-semibold text-xl tracking-tight">Pokemon</h1>
-                  <CgPokemon className="w-6 h-6 text-red-400 bg-red-200 rounded-full ml-1" />
+                <div className="hidden lg:block lg:flex ml-4">
+                  <Header />
                 </div>
             </div>
           </div>
           <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
                 <Link to="/" className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium">Pokedex</Link>
-
                 <Link to="/battle" className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium">Battle</Link>
+                <Button title={dark 
+                ? <BsSun className="text-white w-5 h-5"/> 
+                : <MdOutlineDarkMode className="text-white w-5 h-5" />}
+                        className="rounded-md p-2 hover:bg-red-500"
+                        handler={() => setMode()} />
               </div>
            </div>
            <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
