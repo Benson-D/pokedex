@@ -31,7 +31,7 @@ function PokeNav({ setMode }: { setMode: () => void}) {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
-                <div className="block lg:hidden flex ml-1">
+                <div className="block lg:hidden flex ml-3">
                   <Header />
                 </div>
                 <div className="hidden lg:block lg:flex ml-4">

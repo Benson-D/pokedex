@@ -1,4 +1,3 @@
-
 interface ButtonProps {
     handler?: () => void;
     title: string | JSX.Element;

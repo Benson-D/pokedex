@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Button from '../components/Button';
 import Player from '../components/Player';
 import useInterval from '../hooks/useInterval';
 import { PokeStats } from '../interface/pokeInterface';
 import { selectPlayers } from '../utilities/helper';
+import ThemeContext from '../context/ThemeContext';
 
 /** Poke Battle Page, 
  * when a start button has been initiated will load up pokemon,
@@ -26,6 +27,8 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
   const [status, setStatus] = useState(false);
   const [winner, setWinner] = useState('');
 
+  const { dark } = useContext(ThemeContext);
+
   const loadPlayers = () => {
     const [setOne, setTwo] = selectPlayers(pokemon);
     setPlayerOne(setOne);
@@ -47,7 +50,8 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
 
   return (
     <section>
-        <h1 className="text-center font-medium text-base leading-4 mt-10">
+        <h1 className={`text-center font-medium text-base leading-4 mt-10
+        ${dark ? 'text-white' : 'text-black'}`}>
           Let's test your skills to be a pokemon master
         </h1>
         <div className="mt-10 flex justify-center">
