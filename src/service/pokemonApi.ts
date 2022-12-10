@@ -65,7 +65,7 @@ class PokemonAPI {
                 image: pokeStats.sprites.front_default,
                 experience: String(pokeStats.base_experience),
                 attacks: String(pokeStats.moves.length),
-                type: types.join(', ')
+                type: types.join(' ')
                 }
             })
         );

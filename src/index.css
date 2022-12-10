@@ -13,3 +13,77 @@
   -webkit-text-size-adjust: 100%;
 } 
 
+.poke-bug {
+  background-color: #e1f9bf;
+}
+
+.poke-dragon {
+  background-color: #9fbfe1;
+}
+
+.poke-electric {
+  background-color: #ffffa5
+}
+
+.poke-fairy {
+  background-color: #ffcde7
+}
+
+.poke-fighting {
+  background-color: #df715d;
+}
+
+.poke-fire {
+  background-color: #ffab19;
+}
+
+.poke-flying {
+  background-color: #c9d6ea;
+}
+
+.poke-ghost {
+  background-color: #af84af;
+}
+
+.poke-grass {
+  background-color: #bff8bf;
+}
+
+.poke-ice {
+  background-color: #96e9ff;
+}
+
+.poke-normal {
+  background-color: #ececec;
+}
+
+.poke-poison {
+  background-color: #ff82f8;
+}
+
+.poke-water {
+  background-color: #a8d5ee;
+}
+
+.poke-psychic {
+  background-color: #cc92da;
+}
+
+.poke-steel {
+  background-color: #a3b0bc;
+}
+
+.poke-ground {
+  background-color: #e88d5d;
+}
+
+.poke-rock {
+  background-color: #d8d8d8;
+}
+
+
+
+
+
+
+

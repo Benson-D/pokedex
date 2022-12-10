@@ -32,7 +32,7 @@ function Popup({ pageSize, display, toggleValue, children }
             <div>
                 <button onClick={handlePopUp}
                         type="button" 
-                        className="flex shadow border rounded pl-4 pr-2 py-2 text-gray-700 font-medium hover:bg-gray-50 active:ring-2 active:ring-red-300" 
+                        className="flex shadow border rounded pl-4 pr-2 py-2 text-gray-700 font-medium hover:bg-gray-50 active:ring-2 active:ring-red-300 w-full" 
                         id="menu-button" 
                         aria-expanded="true" 
                         aria-haspopup="true">

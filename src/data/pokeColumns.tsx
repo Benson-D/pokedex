@@ -26,7 +26,18 @@ export const pokeColumns = [
     }),
     columnHelper.accessor('type', {
         header: 'TYPE',
-        cell: ({ getValue }) => <span className="ml-1">{getValue()}</span>
+        cell: ({ getValue }) => {
+            const badgeType:string[] = getValue().split(' ');
+
+            return <div className="poke-badge">
+                        {badgeType.map((type, idx:number) => (
+                        <span key={idx} 
+                              className={`poke-${type} 
+                              py-1.5 px-4 mr-2 rounded`}>{type}</span>
+                        ))}
+                    </div>
+            
+        }
     }),
     columnHelper.accessor('experience', {
         header: 'POWER LEVEL',

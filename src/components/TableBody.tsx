@@ -13,7 +13,7 @@ function TableBody({ rowModels }
   return (
     <tbody>
         {rowModels().rows.map(row => (
-            <tr key={row.id} className="odd:bg-sky-100">
+            <tr key={row.id} className="odd:bg-sky-100 hover:bg-sky-200">
                 {row.getVisibleCells().map(cell => (
                     <td key={cell.id} className="text-xs">
                         {flexRender(cell.column.columnDef.cell, cell.getContext())}

@@ -22,13 +22,13 @@ function TableAdmin({ table, globalFilter, handleFilter}
   const [value, toggleValue] = useToggle();
 
   return (
-    <section className="flex mb-10 justify-between">
+    <section className="sm:flex mb-10 justify-between">
         <Popup pageSize={table.getState().pagination.pageSize} 
                display={value}
                toggleValue={toggleValue}>
           <TableSize table={table} toggleValue={toggleValue} />
         </Popup>
-        <div className="flex relative">
+        <div className="mt-5 sm:mt-0 sm:flex relative">
             <AiOutlineSearch className="absolute top-2.5 left-3" />
             <input className="shadow appearance-none border rounded w-full py-2 pl-10 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                    placeholder="Search Pokemon" 
