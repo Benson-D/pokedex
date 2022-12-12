@@ -79,7 +79,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
                         handleFilter={handleFilter} />
             <div className="overflow-auto">
                 <table className={`w-full table-auto cursor-pointer min-w-[800px]
-                       ${dark ? 'bg-slate-700' : ''}`}>
+                       ${dark ? 'bg-slate-700' : 'bg-white'}`}>
                     <ColGroup widths={[15, 17, 19, 15, 15, 19]} />
                     <TableHeader headerGroups={table.getHeaderGroups} />
                     <TableBody rowModels={table.getRowModel} />
