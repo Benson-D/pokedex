@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { CgPokemon } from 'react-icons/cg';
 import ThemeContext from '../context/ThemeContext';
 
+/** Opening header for nav bar page */
 function Header() {
     const { dark } = useContext(ThemeContext);
 
