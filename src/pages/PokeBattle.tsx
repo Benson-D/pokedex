@@ -1,10 +1,20 @@
-import { useState, useContext } from 'react';
+import { useReducer, useContext } from 'react';
 import Button from '../components/Button';
 import Player from '../components/Player';
 import useInterval from '../hooks/useInterval';
 import { PokeStats } from '../interface/pokeInterface';
-import { selectPlayers, determineWinner } from '../utilities/helper';
+import { selectPlayers } from '../utilities/helper';
+import { battleReducer, BattleActionType } from '../utilities/reducer';
 import ThemeContext from '../context/ThemeContext';
+
+const initialState = {
+  playerOne: [],
+  playerTwo: [],
+  active: 0,
+  loaded: false, 
+  battle: false,
+  winner: ''
+}
 
 /** Poke Battle Page, 
  * when a start button has been initiated will load up pokemon,
@@ -20,33 +30,33 @@ import ThemeContext from '../context/ThemeContext';
  *    status: boolean 
  */
 function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
-  const [playerOne, setPlayerOne] = useState<PokeStats[]>([]);
-  const [playerTwo, setPlayerTwo] = useState<PokeStats[]>([]);
-  const [loadPlayer, setLoadPlayer] = useState(false);
-  const [activePokemon, setActivePokemon] = useState(0);
-  const [status, setStatus] = useState(false);
-  const [winner, setWinner] = useState('');
-
+  const [state, dispatch] = useReducer(battleReducer, initialState);
   const { dark } = useContext(ThemeContext);
 
   const loadPlayers = () => {
     const [setOne, setTwo] = selectPlayers(pokemon);
-    setActivePokemon(0);
-    setPlayerOne(setOne);
-    setPlayerTwo(setTwo)
-    setLoadPlayer(true);
-    setWinner(determineWinner(setOne, setTwo));
+    dispatch({
+      type: BattleActionType.loaded, 
+      playerOne: setOne, 
+      playerTwo: setTwo })
   }
 
-  const battle = () => {
-    if (activePokemon !== playerOne.length - 1) {
-      setActivePokemon(current => current + 1)
+  const battlePokemon = () => {
+    if (active !== playerOne.length - 1) {
+      dispatch({ 
+        type: BattleActionType.begin,
+        playerOne: state.playerOne,
+        playerTwo: state.playerTwo })
     } else {
-      setStatus(false); 
+      dispatch({ 
+        type: BattleActionType.end, 
+        playerOne: state.playerOne, 
+        playerTwo: state.playerTwo })
     }
   }
+  const { playerOne, playerTwo, active, winner, loaded, battle } = state;
 
-  useInterval(battle, status === false ? null : 1500);
+  useInterval(battlePokemon, battle === false ? null : 1500);
 
   return (
     <section>
@@ -59,21 +69,24 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
             <Button handler={loadPlayers} title="Start" />
           )}
         </div>
-        {loadPlayer && 
+        {loaded && 
           <div className="flex flex-col items-center">
             <div className="mt-20 flex">
-              <Player pokemon={playerOne[activePokemon]} /> 
-              <Player pokemon={playerTwo[activePokemon]} /> 
+              <Player pokemon={playerOne[active]} /> 
+              <Player pokemon={playerTwo[active]} /> 
             </div>
-            {activePokemon === playerOne.length -1 
+            {active === playerOne.length -1 
               && (<p className={`mt-10 font-bold text-xl
               ${dark ? 'text-white' : 'text-black'}`}>
                 {winner.toUpperCase()} Wins!
                 </p>)}
             <div className="mt-10 mb-4">
-              <Button handler={() => {
-                setActivePokemon(0);
-                setStatus(true)}} title="Battle" />
+              <Button handler={() => { 
+                dispatch({
+                  type: BattleActionType.battle, 
+                  playerOne: state.playerOne, 
+                  playerTwo: state.playerTwo})
+        }} title="Battle" />
             </div>
           </div>
         }
