@@ -23,7 +23,14 @@ interface BattleState {
     winner: string;
 }
   
-function battleReducer(state: BattleState, action: BattleAction) {
+/**
+ * Reducer function for battle page,
+ * handles state when a user wants to initiate battle game
+ * @param state 
+ * @param action 
+ * @returns {BattleState}
+ */
+function battleReducer(state: BattleState, action: BattleAction): BattleState {
     switch(action.type) {
         case 'loaded': {
             return {
