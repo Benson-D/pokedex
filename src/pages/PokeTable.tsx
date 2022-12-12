@@ -68,7 +68,7 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
     const handleFilter = ((evt: React.ChangeEvent<HTMLInputElement>)
     : void => setGlobalFilter(String(evt.target.value)));
 
-    if (!table.getRowModel().rows.length) {
+    if (!initialData.length) {
         return <RiLoader4Line className='mx-auto my-24 animate-spin w-8 h-8 text-red-400'/>
     }
     
