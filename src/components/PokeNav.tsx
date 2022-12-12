@@ -81,5 +81,4 @@ function PokeNav({ setMode }: { setMode: () => void}) {
   )
 }
 
-//238 87 87
 export default PokeNav;

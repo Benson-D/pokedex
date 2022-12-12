@@ -14,7 +14,7 @@ const initialState = {
   loaded: false, 
   battle: false,
   winner: ''
-}
+};
 
 /** Poke Battle Page, 
  * when a start button has been initiated will load up pokemon,

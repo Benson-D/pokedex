@@ -16,6 +16,7 @@ import ColGroup from '../components/ColGroup';
 import TableAdmin from '../components/TableAdmin';
 import useDebounce from '../hooks/useDebounce';
 import ThemeContext from '../context/ThemeContext';
+import { RiLoader4Line } from 'react-icons/ri';
 
 interface PokeProps {
     initialData : PokeStats[];
@@ -64,13 +65,18 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
 
     const { previousPage, getCanPreviousPage, nextPage, getCanNextPage } = table;
     
-
     const handleFilter = ((evt: React.ChangeEvent<HTMLInputElement>)
     : void => setGlobalFilter(String(evt.target.value)));
+
+    if (!table.getRowModel().rows.length) {
+        return <RiLoader4Line className='mx-auto my-24 animate-spin w-8 h-8 text-red-400'/>
+    }
     
     return (
         <div className="border-solid border border-black/[.18] max-w-screen-xl my-0 mx-auto p-12 pb-6">
-            <TableAdmin table={table} globalFilter={globalFilter} handleFilter={handleFilter}/>
+            <TableAdmin table={table} 
+                        globalFilter={globalFilter} 
+                        handleFilter={handleFilter} />
             <div className="overflow-auto">
                 <table className={`w-full table-auto cursor-pointer min-w-[800px]
                        ${dark ? 'bg-slate-700' : ''}`}>
