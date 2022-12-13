@@ -20,7 +20,7 @@ import { RiLoader4Line } from 'react-icons/ri';
 
 interface PokeProps {
     initialData : PokeStats[];
-    initialColumns: ColumnDef<PokeStats, any>[];
+    initialColumns: ColumnDef<PokeStats, string>[];
 }
 
 /** Main Pokemon Table that renders information provided by pokemon api,
@@ -35,7 +35,7 @@ interface PokeProps {
  */
 function PokeTable({ initialData, initialColumns }: PokeProps) {
     const data = useMemo<PokeStats[]>(() => initialData, [initialData]);
-    const columns = useMemo<ColumnDef<PokeStats, any>[]>(() => initialColumns, []);
+    const columns = useMemo<ColumnDef<PokeStats, string>[]>(() => initialColumns, []);
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
