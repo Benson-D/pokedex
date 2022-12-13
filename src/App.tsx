@@ -7,6 +7,7 @@ import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
 import useToggle from './hooks/useToggle';
 import ThemeContext from './context/ThemeContext';
+import useLocalStorage from './hooks/useLocalStorage';
 
 /** Main Application that renders Pokedex,
  * 
@@ -16,7 +17,7 @@ import ThemeContext from './context/ThemeContext';
  */
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
-  const [dark, setDark] = useToggle();
+  const [dark, setDarkTheme] = useLocalStorage('darkTheme', false);
 
   useEffect(() => {
      async function renderPokemon() {
@@ -29,16 +30,20 @@ function App(): JSX.Element {
   }, []);
 
   useEffect(() => {
-    document.body.className = dark 
+    document.body.className = dark
           ? 'poke-dark bg-slate-800' 
           : 'poke-light bg-white';
   }, [dark]);
+
+  const handleDarkTheme = () => {
+    setDarkTheme((prev: boolean) => !prev)
+  }
 
   return (
     <ThemeContext.Provider value={{dark}}>
       <BrowserRouter>
         <main>
-          <PokeNav setMode={setDark} />
+          <PokeNav setMode={handleDarkTheme} />
           <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
         </main>
       </BrowserRouter>

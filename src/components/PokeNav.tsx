@@ -27,7 +27,7 @@ function PokeNav({ setMode }: { setMode: () => void}) {
                 ? <BsSun className="text-white w-5 h-5"/> 
                 : <MdOutlineDarkMode className="text-white w-5 h-5" />}
                       className="rounded-md p-2 hover:bg-red-500"
-                      handler={() => setMode()} />
+                      handler={setMode} />
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex flex-shrink-0 items-center">
