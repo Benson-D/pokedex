@@ -35,6 +35,7 @@ function battleReducer(state: BattleState, action: BattleAction): BattleState {
         case 'loaded': {
             return {
                 ...state,
+                active: 0,
                 playerOne: action?.playerOne,
                 playerTwo: action?.playerTwo,
                 loaded: true,
