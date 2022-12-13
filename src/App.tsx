@@ -5,7 +5,6 @@ import { PokeStats } from './interface/pokeInterface'
 import { pokeColumns} from './data/pokeColumns';
 import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
-import useToggle from './hooks/useToggle';
 import ThemeContext from './context/ThemeContext';
 import useLocalStorage from './hooks/useLocalStorage';
 
@@ -17,7 +16,7 @@ import useLocalStorage from './hooks/useLocalStorage';
  */
 function App(): JSX.Element {
   const [pokemon, setPokemon] = useState<PokeStats[]>([]);
-  const [dark, setDarkTheme] = useLocalStorage('darkTheme', false);
+  const [dark, setDark] = useLocalStorage('darkTheme', false);
 
   useEffect(() => {
      async function renderPokemon() {
@@ -36,7 +35,7 @@ function App(): JSX.Element {
   }, [dark]);
 
   const handleDarkTheme = () => {
-    setDarkTheme((prev: boolean) => !prev)
+    setDark((prev: boolean) => !prev)
   }
 
   return (
