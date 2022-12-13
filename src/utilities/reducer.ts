@@ -34,11 +34,11 @@ function battleReducer(state: BattleState, action: BattleAction): BattleState {
     switch(action.type) {
         case 'loaded': {
             return {
-                ...state,
                 active: 0,
                 playerOne: action?.playerOne,
                 playerTwo: action?.playerTwo,
                 loaded: true,
+                battle: false,
                 winner: determineWinner(action?.playerOne, action?.playerTwo)
             }
         };
