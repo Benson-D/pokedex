@@ -6,7 +6,7 @@ import PokeBattle from "../pages/PokeBattle";
 
 interface PokeProps {
     initialData : PokeStats[];
-    initialColumns: ColumnDef<PokeStats, any>[];
+    initialColumns: ColumnDef<PokeStats, string>[];
 }
 
 /** Poke Routes to navigate between pages

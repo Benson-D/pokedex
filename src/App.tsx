@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import PokemonAPI from './service/pokemonApi';
 import { PokeStats } from './interface/pokeInterface'
 import { pokeColumns} from './data/pokeColumns';
@@ -15,18 +16,19 @@ import useLocalStorage from './hooks/useLocalStorage';
  *     pokemon: [ {id, name, type, attacks, image, experience}, ...]
  */
 function App(): JSX.Element {
-  const [pokemon, setPokemon] = useState<PokeStats[]>([]);
-  const [dark, setDark] = useLocalStorage('darkTheme', false);
+  const [dark, setDark] = useLocalStorage('darkTheme', false); 
+  const { data: pokeNames } = useQuery({ 
+    queryKey: ['pokeName'], 
+    queryFn: PokemonAPI.getPokemon
+  });
 
-  useEffect(() => {
-     async function renderPokemon() {
-        const pokeData = await PokemonAPI.getPokemon();   
-        const pokeStats = await PokemonAPI.loadPokemon(pokeData);
-        setPokemon(pokeStats);
-     }
+  const { data: pokeStats } = useQuery({
+    queryKey: ['pokeStats', pokeNames],
+    queryFn: async () =>  await PokemonAPI.loadPokemon(pokeNames || []),
+    enabled: pokeNames !== undefined
+  });
 
-     renderPokemon();
-  }, []);
+  const initialPokemon: PokeStats[] = pokeStats || [];
 
   useEffect(() => {
     document.body.className = dark
@@ -36,20 +38,18 @@ function App(): JSX.Element {
 
   const handleDarkTheme = () => {
     setDark((prev: boolean) => !prev)
-  }
+  };
 
   return (
     <ThemeContext.Provider value={{dark}}>
       <BrowserRouter>
         <main>
           <PokeNav setMode={handleDarkTheme} />
-          <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
+          <PokeRoutes initialData={initialPokemon} initialColumns={pokeColumns} />
         </main>
       </BrowserRouter>
     </ThemeContext.Provider>
-
   );
-
 }
 
 export default App

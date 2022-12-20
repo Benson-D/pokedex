@@ -58,7 +58,7 @@ class PokemonAPI {
             data.map( async pokemon => {
                 const pokeStats: any = await this.getPokemonStats(pokemon.url);
                 const types = pokeStats.types.map((stat: any) => stat.type.name);
-        
+            
                 return {
                 id: String(pokeStats.id),
                 name: pokeStats.name,
