@@ -55,7 +55,6 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
     }
   }
   const { playerOne, playerTwo, active, winner, loaded, battle } = state;
-
   useInterval(battlePokemon, battle === false ? null : 1500);
 
   return (
@@ -72,8 +71,8 @@ function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
         {loaded && 
           <div className="flex flex-col items-center">
             <div className="mt-20 flex">
-              <Player pokemon={playerOne[active]} /> 
-              <Player pokemon={playerTwo[active]} /> 
+              <Player pokemon={playerOne} active={active} winner={winner === 'player 1'} /> 
+              <Player pokemon={playerTwo} active={active} winner={winner === 'player 2'} /> 
             </div>
             {active === playerOne.length -1 
               && (<p className={`mt-10 font-bold text-xl
