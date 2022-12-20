@@ -53,7 +53,7 @@ class PokemonAPI {
      * @param data 
      * @returns {Promise<PokeStats[]>} 
      */
-    public static async loadPokemon(data: GetPokemonOutput[]): Promise<PokeStats[]> {
+    public static async getPokemonStat(data: GetPokemonOutput[]): Promise<PokeStats[]> {
         return await Promise.all(
             data.map( async pokemon => {
                 const pokeStats: any = await this.getPokemonStats(pokemon.url);
@@ -69,6 +69,17 @@ class PokemonAPI {
                 }
             })
         );
+    }
+
+    /**
+     * Grabs the indicated pokemon names and urls, 
+     * then return their stats on an individual pokemon
+     * @returns 
+     */
+    public static async loadPokemon() {
+        const pokeNames = await this.getPokemon();
+        const pokemon =  await this.getPokemonStat(pokeNames);
+        return pokemon;
     }
 }
 

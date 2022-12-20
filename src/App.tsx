@@ -17,18 +17,12 @@ import useLocalStorage from './hooks/useLocalStorage';
  */
 function App(): JSX.Element {
   const [dark, setDark] = useLocalStorage('darkTheme', false); 
-  const { data: pokeNames } = useQuery({ 
-    queryKey: ['pokeName'], 
-    queryFn: PokemonAPI.getPokemon
+  const { data: pokemon } = useQuery({
+    queryKey: ['pokemon'],
+    queryFn: async () => await PokemonAPI.loadPokemon()
   });
 
-  const { data: pokeStats } = useQuery({
-    queryKey: ['pokeStats', pokeNames],
-    queryFn: async () =>  await PokemonAPI.loadPokemon(pokeNames || []),
-    enabled: pokeNames !== undefined
-  });
-
-  const initialPokemon: PokeStats[] = pokeStats || [];
+  const initialPokemon: PokeStats[] = pokemon || [];
 
   useEffect(() => {
     document.body.className = dark
