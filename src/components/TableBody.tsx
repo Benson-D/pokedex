@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { flexRender, RowModel } from "@tanstack/react-table"
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import ThemeContext from "../context/ThemeContext";
 
 /** Main Table Body for Poke Table
@@ -10,7 +10,7 @@ import ThemeContext from "../context/ThemeContext";
  * State: none
  */
 function TableBody({ rowModels }
-    : { rowModels: () => RowModel<PokeStats>}) {
+    : { rowModels: () => RowModel<FormattedPokemon>}) {
     
   const { dark } = useContext(ThemeContext); 
 

@@ -1,12 +1,12 @@
 import { useContext } from 'react';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import ThemeContext from '../context/ThemeContext';
 
 /** Displays an individual pokemon card,
  * with specified data
  */
 function Player({ pokemon, active, winner }: { 
-  pokemon: PokeStats[]; active: number; winner: boolean; 
+  pokemon: FormattedPokemon[]; active: number; winner: boolean; 
 }) {
   const { dark } = useContext(ThemeContext);
 

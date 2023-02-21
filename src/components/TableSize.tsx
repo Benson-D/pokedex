@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Table } from '@tanstack/react-table';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import ThemeContext from '../context/ThemeContext';
 
 /** Displays the Table Size,
@@ -12,7 +12,7 @@ import ThemeContext from '../context/ThemeContext';
  * State: none
  */
 function TableSize({ table, toggleValue }
-    : { table: Table<PokeStats>; 
+    : { table: Table<FormattedPokemon>; 
         toggleValue: (value?: boolean) => void }) {
 
   const { dark } = useContext(ThemeContext);

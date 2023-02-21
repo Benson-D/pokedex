@@ -2,7 +2,7 @@ import { useReducer, useContext } from 'react';
 import Button from '../components/Button';
 import Player from '../components/Player';
 import useInterval from '../hooks/useInterval';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import { selectPlayers } from '../utilities/helper';
 import { battleReducer, BattleActionType } from '../utilities/reducer';
 import ThemeContext from '../context/ThemeContext';
@@ -23,13 +23,13 @@ const initialState = {
  * Props: 
  *     pokemon: [{id, name, experience, attack, image, type}]
  * State: 
- *    playerOne: PokeStats[]
+ *    playerOne: FormattedPokemon[]
  *    playerTwo: PokeState[]
  *    loadPlayer: boolean
  *    activePokemon: number
  *    status: boolean 
  */
-function PokeBattle({ pokemon }: { pokemon: PokeStats[]}) {
+function PokeBattle({ pokemon }: { pokemon: FormattedPokemon[]}) {
   const [state, dispatch] = useReducer(battleReducer, initialState);
   const { dark } = useContext(ThemeContext);
 

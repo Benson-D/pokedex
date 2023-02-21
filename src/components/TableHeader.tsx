@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { flexRender, HeaderGroup } from '@tanstack/react-table';
 import { BiSortUp, BiSortDown } from 'react-icons/bi';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import ThemeContext from '../context/ThemeContext';
 
 /** Table Header for Poke Table,
@@ -13,7 +13,7 @@ import ThemeContext from '../context/ThemeContext';
  * State: none
  */
 function TableHeader({ headerGroups }
-  : { headerGroups: () => HeaderGroup<PokeStats>[]}) {
+  : { headerGroups: () => HeaderGroup<FormattedPokemon>[]}) {
   
   const { dark } = useContext(ThemeContext);
   return (

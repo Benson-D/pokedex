@@ -8,7 +8,7 @@ import {
     getSortedRowModel,
     getFilteredRowModel
 } from '@tanstack/react-table';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import TableHeader from '../components/TableHeader';
 import TableBody from '../components/TableBody';
 import PaginateButton from '../components/PaginateButton';
@@ -19,8 +19,8 @@ import ThemeContext from '../context/ThemeContext';
 import { RiLoader4Line } from 'react-icons/ri';
 
 interface PokeProps {
-    initialData : PokeStats[];
-    initialColumns: ColumnDef<PokeStats, string>[];
+    initialData : FormattedPokemon[];
+    initialColumns: ColumnDef<FormattedPokemon, string>[];
 }
 
 /** Main Pokemon Table that renders information provided by pokemon api,
@@ -34,8 +34,8 @@ interface PokeProps {
  *      globalFilter: string
  */
 function PokeTable({ initialData, initialColumns }: PokeProps) {
-    const data = useMemo<PokeStats[]>(() => initialData, [initialData]);
-    const columns = useMemo<ColumnDef<PokeStats, string>[]>(() => initialColumns, []);
+    const data = useMemo<FormattedPokemon[]>(() => initialData, [initialData]);
+    const columns = useMemo<ColumnDef<FormattedPokemon, string>[]>(() => initialColumns, []);
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');

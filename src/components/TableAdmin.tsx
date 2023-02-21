@@ -1,7 +1,7 @@
 import { Table } from '@tanstack/react-table';
 import React, { useContext } from 'react'; 
 import { AiOutlineSearch } from 'react-icons/ai';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import Popup from './Popup';
 import TableSize from './TableSize';
 import useToggle from '../hooks/useToggle';
@@ -16,7 +16,7 @@ import ThemeContext from '../context/ThemeContext';
  */
 function TableAdmin({ table, globalFilter, handleFilter}
     : { 
-      table: Table<PokeStats>;
+      table: Table<FormattedPokemon>;
       globalFilter: string; 
       handleFilter: (evt:React.ChangeEvent<HTMLInputElement>) => void }) {
 
