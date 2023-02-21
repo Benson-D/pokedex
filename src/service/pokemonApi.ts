@@ -1,5 +1,9 @@
 import axios, { AxiosError } from "axios"; 
-import { PokeStats } from '../interface/pokeInterface';
+import { 
+    FormattedPokemon, 
+    Pokemon, 
+    PokemonSprites 
+} from '../interface/pokeInterface';
 
 const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151%27`; 
 
@@ -53,7 +57,7 @@ class PokemonAPI {
      * @param data 
      * @returns {Promise<PokeStats[]>} 
      */
-    public static async getPokemonStat(data: GetPokemonOutput[]): Promise<PokeStats[]> {
+    public static async getPokemonStat(data: GetPokemonOutput[]): Promise<FormattedPokemon[]> {
         return await Promise.all(
             data.map( async pokemon => {
                 const pokeStats: any = await this.getPokemonStats(pokemon.url);
@@ -80,6 +84,29 @@ class PokemonAPI {
         const pokeNames = await this.getPokemon();
         const pokemon =  await this.getPokemonStat(pokeNames);
         return pokemon;
+    }
+
+    /**
+     * After fetching data from graphql endpoint, 
+     * reformats data to be utilized with TanStack tables
+     * @param p 
+     * @returns 
+     */
+    public static formatPokemon(p: Pokemon): FormattedPokemon {
+        const baseURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master";
+        const sprites = JSON.parse(p.pokemon_v2_pokemonsprites[0].sprites) as PokemonSprites;
+        const pokeImage = sprites?.front_default?.replaceAll('/media/', '');
+        const pokeURL = pokeImage ? `${baseURL}/${pokeImage}` : '';
+        const types = p.pokemon_v2_pokemontypes.map((type) => type.pokemon_v2_type.name);
+
+        return {
+          id: String(p.id),
+          name: p.name,
+          image: pokeURL,
+          experience: String(p.base_experience),
+          attacks: String(p.pokemon_v2_pokemonmoves_aggregate.aggregate.count),
+          type: types.join(' ')
+        }
     }
 }
 

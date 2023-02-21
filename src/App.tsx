@@ -1,12 +1,13 @@
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { BrowserRouter } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery } from '@apollo/client';
+import { Pokemon, FormattedPokemon } from './interface/pokeInterface';
 import PokemonAPI from './service/pokemonApi';
-import { PokeStats } from './interface/pokeInterface'
-import { pokeColumns} from './data/pokeColumns';
+import { LOAD_POKEMON } from './graphql/queries';
+import { pokeColumns } from './data/pokeColumns';
+import ThemeContext from './context/ThemeContext';
 import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
-import ThemeContext from './context/ThemeContext';
 import useLocalStorage from './hooks/useLocalStorage';
 
 /** Main Application that renders Pokedex,
@@ -17,12 +18,16 @@ import useLocalStorage from './hooks/useLocalStorage';
  */
 function App(): JSX.Element {
   const [dark, setDark] = useLocalStorage('darkTheme', false); 
-  const { data: pokemon } = useQuery({
-    queryKey: ['pokemon'],
-    queryFn: async () => await PokemonAPI.loadPokemon()
-  });
+  const [pokemon, setPokemon] = useState([]);
+  const { data } = useQuery(LOAD_POKEMON, {
+    onCompleted: (data) => {
+      const formattedData = data.pokemon_v2_pokemon.map(
+        (p: Pokemon) => PokemonAPI.formatPokemon(p));
 
-  const initialPokemon: PokeStats[] = pokemon || [];
+      const filterPokeImages = formattedData.filter((p: FormattedPokemon) => p.image);
+      setPokemon(filterPokeImages);
+    }
+  });
 
   useEffect(() => {
     document.body.className = dark
@@ -39,7 +44,7 @@ function App(): JSX.Element {
       <BrowserRouter>
         <main>
           <PokeNav setMode={handleDarkTheme} />
-          <PokeRoutes initialData={initialPokemon} initialColumns={pokeColumns} />
+          <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
         </main>
       </BrowserRouter>
     </ThemeContext.Provider>
