@@ -1,7 +1,7 @@
 import { createColumnHelper } from '@tanstack/react-table';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 
-const columnHelper = createColumnHelper<PokeStats>();
+const columnHelper = createColumnHelper<FormattedPokemon>();
 
 //Main Columns and row details for Poke Tables
 export const pokeColumns = [
