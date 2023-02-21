@@ -1,12 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import { ColumnDef } from '@tanstack/react-table';
-import { PokeStats } from '../interface/pokeInterface';
+import { FormattedPokemon } from '../interface/pokeInterface';
 import PokeTable from "../pages/PokeTable";
 import PokeBattle from "../pages/PokeBattle";
 
 interface PokeProps {
-    initialData : PokeStats[];
-    initialColumns: ColumnDef<PokeStats, string>[];
+    initialData : FormattedPokemon[];
+    initialColumns: ColumnDef<FormattedPokemon, string>[];
 }
 
 /** Poke Routes to navigate between pages
