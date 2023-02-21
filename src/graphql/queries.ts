@@ -1,11 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const LOAD_POKEMON = gql`
-    query pokeAPIquery {
+    query pokeAPIquery($generation: String!) {
         pokemon_v2_pokemon(
             where: {
                 pokemon_v2_pokemonspecy: {
-                    pokemon_v2_generation: { name: {_eq: "generation-i"} }
+                    pokemon_v2_generation: { name: {_eq: $generation} }
                 }
             }, 
             order_by: {id: asc}
