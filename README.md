@@ -1,7 +1,7 @@
 # Pokedex
 
 Pokedex is a frontend application utilizing the [pokemon api](https://pokeapi.co/).
-The frontend consist of React, TypeScript, and Tailwind. 
+The frontend consist of React, TypeScript, GraphQL, and Tailwind. 
 - To view live demo click [here](https://pokedex-benson.netlify.app/)
 
 Utilizes tanstack tables to display original pokemon, and allows a user to battle against pokemon.
