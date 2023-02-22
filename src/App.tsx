@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
-import { BrowserRouter } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
+import { BrowserRouter } from 'react-router-dom';
+
 import { Pokemon, FormattedPokemon } from './interface/pokeInterface';
 import PokemonAPI from './service/pokemonApi';
 import { LOAD_POKEMON } from './graphql/queries';
@@ -16,18 +17,23 @@ type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generat
  * 
  * Props: none
  * State: 
- *     pokemon: [ {id, name, type, attacks, image, experience}, ...]
+ *  - pokemon: an array of formatted Pokemon data, each containing the following fields:
+ *    * id: a unique identifier for the Pokemon.
+ *    * name: the name of the Pokemon.
+ *    * type: the type of the Pokemon.
+ *    * attacks: an array of the Pokemon's attacks.
+ *    * image: the URL of the Pokemon's image.
+ *    * experience: the amount of experience points the Pokemon has.
  */
 function App(): JSX.Element {
   const [dark, setDark] = useLocalStorage('darkTheme', false); 
-  const [pokemon, setPokemon] = useState([]);
+  const [pokemon, setPokemon] = useState<FormattedPokemon[]>([]);
   const [generation, setGeneration] = useState<Generation>("generation-i");
 
   const { data } = useQuery(LOAD_POKEMON, {
     variables: { generation: generation },
     onCompleted: (data) => {
-      const formattedData = data.pokemon_v2_pokemon.map(
-        (p: Pokemon) => PokemonAPI.formatPokemon(p));
+      const formattedData = data.pokemon_v2_pokemon.map((p: Pokemon) => PokemonAPI.formatPokemon(p));
 
       const filterPokeImages = formattedData.filter((p: FormattedPokemon) => p.image);
       setPokemon(filterPokeImages);
@@ -40,12 +46,13 @@ function App(): JSX.Element {
           : 'poke-light bg-white';
   }, [dark]);
 
-  const handleDarkTheme = () => {
+   /** Toggles the application's theme between light and dark. */
+  const handleDarkTheme = (): void => {
     setDark((prev: boolean) => !prev)
   };
 
   return (
-    <ThemeContext.Provider value={{dark}}>
+    <ThemeContext.Provider value={{ dark }}>
       <BrowserRouter>
         <main>
           <PokeNav setMode={handleDarkTheme} />
