@@ -1,36 +1,36 @@
-import { useRef, useCallback, useContext } from 'react';
+import { useRef, useCallback, useContext, cloneElement, ReactNode } from 'react';
 import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
-import useClickOutside from '../hooks/useClickOutside';
 import ThemeContext from '../context/ThemeContext';
+import useClickOutside from '../hooks/useClickOutside';
+import useToggle from '../hooks/useToggle';
 
-/** Popup Component Display
- * 
- * Reusabled component that can used for other popup items
+interface PopupProps {
+    label: string;
+    children: ReactNode;
+}
+
+/** 
+ * A reusable component that displays a popup menu when clicked.
  * 
  * Props: 
- *      pageSize: number
- *      display: boolean
- *      toggleValue: callback
- *      children: JSX.Element
- * State: none     
+ *      label: string - The label to display on the button
+ *      children: ReactNode - The content to display in the popup menu 
  */
-function Popup({ pageSize, display, toggleValue, children }
-    : { pageSize: number; 
-        display: boolean;
-        toggleValue: (value?: boolean) => void;
-        children: JSX.Element; }) {
-
-    const handlePopUp = (): void => toggleValue(); 
+function Popup({ label, children }: PopupProps) {
     const { dark } = useContext(ThemeContext);
-
+    
+    //Handles toggle value logic if clicked on
+    const [value, toggleValue] = useToggle();
+    const handlePopUp = (): void => toggleValue(); 
+    
     //Handle Outside Click Events
     const outsideEvent = useRef<HTMLElement>(null);
-    const handleOutside = useCallback(() => { toggleValue(false) }, []);
+    const handleOutside = useCallback(() => toggleValue(false), []);
 
     useClickOutside(outsideEvent, handleOutside);
 
     return (
-        <section className={`relative ${dark ? 'bg-slate-600': 'bg-white'}`} 
+        <section className={`relative ${dark ? 'bg-slate-600' : 'bg-white'}`} 
                  ref={outsideEvent}>
             <div>
                 <button onClick={handlePopUp}
@@ -44,20 +44,20 @@ function Popup({ pageSize, display, toggleValue, children }
                         id="menu-button" 
                         aria-expanded="true" 
                         aria-haspopup="true">
-                    Per Page {pageSize}
+                    {label}
                     <MdOutlineKeyboardArrowDown className="h-6 ml-2"/>
                 </button>
             </div>
             <div className={`absolute left-0 z-10 mt-2 w-56 origin-top-right 
             rounded-md bg-white shadow-lg 
-            ${display 
+            ${value 
             ? 'transition ease-out duration-200 transform opacity-100 scale-100' 
             : 'transition ease-in duration-75 transform opacity-0 scale-95 -z-20'}
             ring-1 ring-black ring-opacity-5 focus:outline-none`}
                 role="menu" 
                 aria-orientation="vertical" 
                 aria-labelledby="menu-button">
-                    {children}
+                    {children && cloneElement(children as React.ReactElement, { toggleValue })}
             </div>
         </section>
     )

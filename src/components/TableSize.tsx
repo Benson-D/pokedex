@@ -3,18 +3,20 @@ import { Table } from '@tanstack/react-table';
 import { FormattedPokemon } from '../interface/pokeInterface';
 import ThemeContext from '../context/ThemeContext';
 
-/** Displays the Table Size,
+interface TableSizeProps {
+  table: Table<FormattedPokemon>;
+  toggleValue: (value?: boolean) => void; 
+}
+
+/** 
+ * Displays the Table Size,
  * When a list item is clicked will change the display of the table
  * 
  * Props: 
  *      table: tan-stack
  *      toggleValue: function
- * State: none
  */
-function TableSize({ table, toggleValue }
-    : { table: Table<FormattedPokemon>; 
-        toggleValue: (value?: boolean) => void }) {
-
+function TableSize({ table, toggleValue }: TableSizeProps) {
   const { dark } = useContext(ThemeContext);
   const handleTableSize = (pageSize: number): void => {
     table.setPageSize(Number(pageSize))

@@ -4,32 +4,39 @@ import { AiOutlineSearch } from 'react-icons/ai';
 import { FormattedPokemon } from '../interface/pokeInterface';
 import Popup from './Popup';
 import TableSize from './TableSize';
-import useToggle from '../hooks/useToggle';
 import ThemeContext from '../context/ThemeContext';
 
-/** Modifies the current table by display of info and length
+interface TableAdminProps {
+  table: Table<FormattedPokemon>;
+  globalFilter: string; 
+  handleFilter: (evt:React.ChangeEvent<HTMLInputElement>) => void 
+}
+
+/** 
+ * Displays table administration components, 
+ * such as table size popup and search input.
  * 
  * Props: 
  *    table: tan-stack
  *    globalFilter: string
  *    handleFilter: fn (filter, search)
  */
-function TableAdmin({ table, globalFilter, handleFilter}
-    : { 
-      table: Table<FormattedPokemon>;
-      globalFilter: string; 
-      handleFilter: (evt:React.ChangeEvent<HTMLInputElement>) => void }) {
-
-  const [value, toggleValue] = useToggle();
+function TableAdmin({ table, globalFilter, handleFilter}: TableAdminProps) {
   const { dark } = useContext(ThemeContext);
+
+  const pageSize = table.getState().pagination.pageSize
 
   return (
     <section className="sm:flex mb-10 justify-between">
-        <Popup pageSize={table.getState().pagination.pageSize} 
-               display={value}
-               toggleValue={toggleValue}>
-          <TableSize table={table} toggleValue={toggleValue} />
-        </Popup>
+        <div className="sm:flex space-x-4">
+          <Popup label={`Per Page ${pageSize}`}>
+            <TableSize table={table} />
+          </Popup>
+          <Popup label={`Filter`}>
+            <TableSize table={table} />
+          </Popup>
+        </div>
+    
         <div className="mt-5 sm:mt-0 sm:flex relative">
             <AiOutlineSearch className={`absolute top-2.5 left-3 
             ${dark ? 'text-white' : 'text-gray-400'}`} />
