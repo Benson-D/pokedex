@@ -18,9 +18,12 @@ import useDebounce from '../hooks/useDebounce';
 import ThemeContext from '../context/ThemeContext';
 import { RiLoader4Line } from 'react-icons/ri';
 
+type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
+
 interface PokeProps {
     initialData : FormattedPokemon[];
     initialColumns: ColumnDef<FormattedPokemon, string>[];
+    handlePokeGeneration: (gen: Generation) => void;
 }
 
 /** Main Pokemon Table that renders information provided by pokemon api,
@@ -33,7 +36,7 @@ interface PokeProps {
  *      sorting: array
  *      globalFilter: string
  */
-function PokeTable({ initialData, initialColumns }: PokeProps) {
+function PokeTable({ initialData, initialColumns, handlePokeGeneration }: PokeProps) {
     const data = useMemo<FormattedPokemon[]>(() => initialData, [initialData]);
     const columns = useMemo<ColumnDef<FormattedPokemon, string>[]>(() => initialColumns, []);
 
@@ -76,7 +79,8 @@ function PokeTable({ initialData, initialColumns }: PokeProps) {
         <div className="border-solid border border-black/[.18] max-w-screen-xl my-0 mx-auto p-12 pb-6">
             <TableAdmin table={table} 
                         globalFilter={globalFilter} 
-                        handleFilter={handleFilter} />
+                        handleFilter={handleFilter}
+                        handlePokeGeneration={handlePokeGeneration} />
             <div className="overflow-auto">
                 <table className={`w-full table-auto cursor-pointer min-w-[800px]
                        ${dark ? 'bg-slate-700' : 'bg-white'}`}>

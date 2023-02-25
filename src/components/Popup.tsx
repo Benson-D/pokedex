@@ -6,6 +6,7 @@ import useToggle from '../hooks/useToggle';
 
 interface PopupProps {
     label: string;
+    classStyle?: string;
     children: ReactNode;
 }
 
@@ -16,7 +17,7 @@ interface PopupProps {
  *      label: string - The label to display on the button
  *      children: ReactNode - The content to display in the popup menu 
  */
-function Popup({ label, children }: PopupProps) {
+function Popup({ label, classStyle = '', children }: PopupProps) {
     const { dark } = useContext(ThemeContext);
     
     //Handles toggle value logic if clicked on
@@ -30,7 +31,7 @@ function Popup({ label, children }: PopupProps) {
     useClickOutside(outsideEvent, handleOutside);
 
     return (
-        <section className={`relative ${dark ? 'bg-slate-600' : 'bg-white'}`} 
+        <section className={`relative ${dark ? 'bg-slate-600' : 'bg-white'} ${classStyle}`} 
                  ref={outsideEvent}>
             <div>
                 <button onClick={handlePopUp}
@@ -63,4 +64,4 @@ function Popup({ label, children }: PopupProps) {
     )
 }
 
-export default  Popup;
+export default Popup;
