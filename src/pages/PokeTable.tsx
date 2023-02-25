@@ -26,26 +26,33 @@ interface PokeProps {
     handlePokeGeneration: (gen: Generation) => void;
 }
 
-/** Main Pokemon Table that renders information provided by pokemon api,
+/** 
+ * Main Pokemon Table that renders information provided by pokemon api,
  * Utilizes tanstack table 
  * 
  * Props: 
  *      initialData: [{ name, id, experience, image, type}, ...]
  *      initialColumns: {tanstack table}
- * State: 
+*      handlePokeGeneration: (gen: Generation) => void;
+ * 
+ * State:
  *      sorting: array
  *      globalFilter: string
  */
 function PokeTable({ initialData, initialColumns, handlePokeGeneration }: PokeProps) {
+    // Memoize the data and columns to prevent unnecessary re-renders.
     const data = useMemo<FormattedPokemon[]>(() => initialData, [initialData]);
     const columns = useMemo<ColumnDef<FormattedPokemon, string>[]>(() => initialColumns, []);
 
+    // Manage the table's sorting and filtering state.
     const [sorting, setSorting] = useState<SortingState>([]);
     const [globalFilter, setGlobalFilter] = useState('');
     const searchValue = useDebounce(globalFilter);
 
+    // Get the current theme from context.
     const { dark } = useContext(ThemeContext);
 
+    // Create a new instance using the provided data, columns, and state.
     const table = useReactTable({
         data,
         columns,
@@ -66,11 +73,14 @@ function PokeTable({ initialData, initialColumns, handlePokeGeneration }: PokePr
         getPaginationRowModel: getPaginationRowModel()
     });
 
+    // Destructure the required functions from the table instance.
     const { previousPage, getCanPreviousPage, nextPage, getCanNextPage } = table;
     
+    // Handle changes to the global filter input.
     const handleFilter = ((evt: React.ChangeEvent<HTMLInputElement>)
     : void => setGlobalFilter(String(evt.target.value)));
 
+    // Display a loading spinner if there is no data to display.
     if (!initialData.length) {
         return <RiLoader4Line className='mx-auto my-24 animate-spin w-8 h-8 text-red-400'/>
     }
