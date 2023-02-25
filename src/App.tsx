@@ -51,12 +51,20 @@ function App(): JSX.Element {
     setDark((prev: boolean) => !prev)
   };
 
+  /** Takes in a generation type and sets state to new generation */
+  const handlePokeGeneration = (generation: Generation): void => {
+    setGeneration(generation);
+  };
+
   return (
     <ThemeContext.Provider value={{ dark }}>
       <BrowserRouter>
         <main>
           <PokeNav setMode={handleDarkTheme} />
-          <PokeRoutes initialData={pokemon} initialColumns={pokeColumns} />
+          <PokeRoutes 
+            initialData={pokemon} 
+            initialColumns={pokeColumns}
+            handlePokeGeneration={handlePokeGeneration} />
         </main>
       </BrowserRouter>
     </ThemeContext.Provider>
