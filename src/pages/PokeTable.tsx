@@ -73,7 +73,7 @@ function PokeTable({ initialData, initialColumns, handlePokeGeneration }: PokePr
         getPaginationRowModel: getPaginationRowModel()
     });
 
-    // Destructure the required functions from the table instance.
+    // Destructure the required functions from the table instance, pagination.
     const { previousPage, getCanPreviousPage, nextPage, getCanNextPage } = table;
     
     // Handle changes to the global filter input.
