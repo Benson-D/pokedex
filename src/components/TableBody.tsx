@@ -15,7 +15,7 @@ function TableBody({ rowModels }
   const { dark } = useContext(ThemeContext); 
 
   return (
-    <tbody>
+    <tbody className="poke-table-body">
         {rowModels().rows.map(row => (
             <tr key={row.id} className={dark 
                 ? 'odd:bg-slate-600 hover:bg-slate-500' 

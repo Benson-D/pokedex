@@ -17,7 +17,7 @@ function TableHeader({ headerGroups }
   
   const { dark } = useContext(ThemeContext);
   return (
-    <thead>
+    <thead className="poke-table-header">
         {headerGroups().map(headerGroup => (
             <tr key={headerGroup.id}>
                 {headerGroup.headers.map(header => (
