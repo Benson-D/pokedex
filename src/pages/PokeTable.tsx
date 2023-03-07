@@ -18,12 +18,10 @@ import useDebounce from '../hooks/useDebounce';
 import ThemeContext from '../context/ThemeContext';
 import { RiLoader4Line } from 'react-icons/ri';
 
-type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
-
 interface PokeProps {
     initialData : FormattedPokemon[];
     initialColumns: ColumnDef<FormattedPokemon, string>[];
-    handlePokeGeneration: (gen: Generation) => void;
+    handlePokeGeneration: (gen: string) => void;
 }
 
 /** 

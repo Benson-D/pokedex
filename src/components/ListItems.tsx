@@ -1,12 +1,10 @@
 import { useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
 
-type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
-
 interface ListItemsProps {
     mapData: string[];
-    handleList: (data: Generation | string) => void;
-    toggleValue: (value?: boolean) => void; 
+    handleList: (data: string) => void;
+    toggleValue?: (value?: boolean) => void; 
 }
 
 /**
@@ -16,8 +14,8 @@ interface ListItemsProps {
 function ListItems({ mapData, handleList, toggleValue }: ListItemsProps) {
     const { dark } = useContext(ThemeContext); 
 
-    const handleItemClick = (data: Generation | string) => {
-        toggleValue();
+    const handleItemClick = (data: string) => {
+        if (toggleValue) toggleValue();
         handleList(data);
     }
 

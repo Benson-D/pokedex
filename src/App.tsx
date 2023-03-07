@@ -11,8 +11,6 @@ import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
 import useLocalStorage from './hooks/useLocalStorage';
 
-type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
-
 /** Main Application that renders Pokedex,
  * 
  * Props: none
@@ -28,7 +26,7 @@ type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generat
 function App(): JSX.Element {
   const [dark, setDark] = useLocalStorage('darkTheme', false); 
   const [pokemon, setPokemon] = useState<FormattedPokemon[]>([]);
-  const [generation, setGeneration] = useState<Generation>("generation-i");
+  const [generation, setGeneration] = useState<string>("generation-i");
 
   const { data } = useQuery(LOAD_POKEMON, {
     variables: { generation: generation },
@@ -52,7 +50,7 @@ function App(): JSX.Element {
   };
 
   /** Takes in a generation type and sets state to new generation */
-  const handlePokeGeneration = (generation: Generation): void => {
+  const handlePokeGeneration = (generation: string): void => {
     setGeneration(generation);
   };
 

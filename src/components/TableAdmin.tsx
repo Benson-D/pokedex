@@ -3,17 +3,14 @@ import React, { useContext } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { FormattedPokemon } from '../interface/pokeInterface';
 import Popup from './Popup';
-import TableSize from './TableSize';
 import ListItems from './ListItems';
 import ThemeContext from '../context/ThemeContext';
-
-type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
 
 interface TableAdminProps {
   table: Table<FormattedPokemon>;
   globalFilter: string; 
   handleFilter: (evt:React.ChangeEvent<HTMLInputElement>) => void;
-  handlePokeGeneration: (gen: Generation) => void; 
+  handlePokeGeneration: (gen: string) => void; 
 }
 
 /** 

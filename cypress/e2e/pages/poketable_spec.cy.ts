@@ -17,7 +17,7 @@ describe('PokeTable Page', () => {
     cy.get('.poke-table-header th').should('have.length', 6)
     cy.get('.poke-table-header th')
       .eq(1)
-      .should('have.text', 'NAME');
+      .should('have.text', 'NAME')
 
     // Check that the initial data is rendered correctly.
     cy.get('.poke-table-body tr').should('have.length', 15);
