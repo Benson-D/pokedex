@@ -41,13 +41,24 @@ function PokeNav({ setMode }: { setMode: () => void}) {
           </div>
           <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <Link to="/" className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium">Pokedex</Link>
-                <Link to="/battle" className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium">Battle</Link>
-                <Button title={dark 
-                ? <BsSun className="text-white w-5 h-5"/> 
-                : <MdOutlineDarkMode className="text-white w-5 h-5" />}
-                        className="rounded-md p-2 hover:bg-red-500"
-                        handler={() => setMode()} />
+                <Link to="/" 
+                      className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium"
+                      data-cy-nav-desktop="table">
+                        Pokedex
+                </Link>
+                <Link to="/battle" 
+                      className="text-white hover:bg-red-500 px-3 py-2 rounded-md text-sm font-medium"
+                      data-cy-nav-desktop="battle">
+                        Battle
+                </Link>
+                <button
+                    className="rounded-md p-2 hover:bg-red-500"
+                    data-cy-nav-desktop="dark-mode"
+                    onClick={() => setMode()}>
+                    {dark 
+                      ? <BsSun className="text-white w-5 h-5"/> 
+                      : <MdOutlineDarkMode className="text-white w-5 h-5" />}
+                </button>
               </div>
            </div>
            <div className="absolute inset-y-0 right-0 flex items-center sm:hidden">
