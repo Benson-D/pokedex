@@ -20,7 +20,8 @@ function ListItems({ mapData, handleList, toggleValue }: ListItemsProps) {
     }
 
     return (
-        <ul className={`py-1 ${dark ? 'bg-slate-600' : 'bg-white'}`} role="none">
+        <ul className={`py-1 ${dark ? 'bg-slate-600' : 'bg-white'}`} role="none"
+            data-cy-list="poke-popup-list">
             {mapData.map(data => (
                 <li key={data} 
                     className={`block px-4 py-2 text-sm cursor-pointer

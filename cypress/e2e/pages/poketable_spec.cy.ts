@@ -27,7 +27,7 @@ describe('PokeTable Page', () => {
       .should('have.text', 'bulbasaur')
   })
 
-  it('should navigate to Battle/Table pages and initiate dark mode on click', () => {
+  it('should navigate to Battle/Table pages', () => {
     // Wait for PokeAPI query to complete
     cy.wait('@pokeAPIquery')
 
@@ -38,6 +38,11 @@ describe('PokeTable Page', () => {
     // Click on Table button and verify URL
     cy.get('[data-cy-nav-desktop="table"]').click()
     cy.url().should('include', '/')
+  })
+
+  it('initiates dark mode on click and stores in local storage', () => {
+    // Wait for PokeAPI query to complete
+    cy.wait('@pokeAPIquery')
 
     // Click on Dark Mode button and verify background color change
     cy.get('[data-cy-nav-desktop="dark-mode"]').click()
@@ -49,6 +54,17 @@ describe('PokeTable Page', () => {
     cy.wait('@pokeAPIquery')
     cy.get('body')
       .should('have.css', 'background-color', 'rgb(30, 41, 59)')
+  })
+
+  it('filter popups appear after click', () => {
+    // Popups are not displayed
+    cy.get('[data-cy-list="poke-popup-list"]').should('not.be.visible')
+
+    // Table length filter appears after click
+    cy.get('[data-cy-popup="poke-popup"]').eq(0).click()
+    cy.get('[data-cy-list="poke-popup-list"] li')
+      .eq(0)
+      .should('have.text', 'Show 15')
   })
 
 })

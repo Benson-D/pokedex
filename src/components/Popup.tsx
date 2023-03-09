@@ -31,7 +31,8 @@ function Popup({ label, classStyle = '', children }: PopupProps) {
     useClickOutside(outsideEvent, handleOutside);
 
     return (
-        <section className={`relative ${dark ? 'bg-slate-600' : 'bg-white'} ${classStyle}`} 
+        <section className={`relative ${dark ? 'bg-slate-600' : 'bg-white'} ${classStyle}`}
+                 data-cy-popup="poke-popup" 
                  ref={outsideEvent}>
             <div>
                 <button onClick={handlePopUp}
