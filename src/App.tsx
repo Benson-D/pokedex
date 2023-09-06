@@ -24,7 +24,7 @@ import useLocalStorage from './hooks/useLocalStorage';
  *    * experience: the amount of experience points the Pokemon has.
  */
 function App(): JSX.Element {
-  const [dark, setDark] = useLocalStorage('darkTheme', false); 
+  const [dark, setDark] = useLocalStorage('darkTheme', true); 
   const [pokemon, setPokemon] = useState<FormattedPokemon[]>([]);
   const [generation, setGeneration] = useState<string>("generation-i");
 
