@@ -5,7 +5,7 @@ import {
     PokemonSprites 
 } from '../interface/pokeInterface';
 
-const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151%27`; 
+const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151`; 
 
 /**
  * Represents the output of a single Pokémon in a list.
@@ -32,11 +32,16 @@ class PokemonAPI {
      * and URL for retrieving its stats.
      * @throws An error if the API request fails.
      */
-    public static async getPokemonList(): Promise<PokemonListOutput[]> {
+    public static async getPokemonList(offset = ''): Promise<PokemonListOutput[]> {
         try{
-            return (await axios({url: MAIN_URL})).data?.results; 
+            const generationURL = offset ? `${MAIN_URL}&offset=${offset}` : MAIN_URL;
+
+            const pokemonList = await axios({ url: generationURL });
+            return pokemonList.data?.results; 
         } catch(err){
-            this.handleRequestError(err);
+            const error = err as AxiosError;
+            console.error("Poke Error", error.message);
+            throw error.response; ;
         }
     }
 
@@ -51,7 +56,9 @@ class PokemonAPI {
         try {
             return (await axios({url})).data;
         } catch(err){
-            this.handleRequestError(err);
+            const error = err as AxiosError;
+            console.error("Poke Error", error.message);
+            throw error.response; ;
         }
     }
 
@@ -86,8 +93,8 @@ class PokemonAPI {
      * each containing stats on an individual Pokémon, 
      * such as its base experience, height, and weight.
      */
-    public static async loadPokemon(): Promise<FormattedPokemon[]> {
-        const pokeNames = await this.getPokemonList();
+    public static async loadPokemon(generation: string): Promise<FormattedPokemon[]> {
+        const pokeNames = await this.getPokemonList(generation);
         const pokemon =  await this.getPokemonStat(pokeNames);
         return pokemon;
     }
@@ -120,19 +127,6 @@ class PokemonAPI {
           attacks: String(attacks),
           type: types.join(' ')
         };
-    }
-
-
-    /**
-     * Handles errors that may occur when making requests to the PokeAPI.
-     * Logs the error message and throws the corresponding response.
-     * 
-     * @param {AxiosError} error - The AxiosError object containing the error response.
-     * @throws {AxiosResponse} The error response from the API request.
-     */
-    private static handleRequestError(error: AxiosError) {
-        console.error("Poke Error", error.message);
-        throw error.response; 
     }
 }
 
