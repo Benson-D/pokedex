@@ -4,13 +4,10 @@ import { FormattedPokemon } from '../interface/pokeInterface';
 import PokeTable from "../pages/PokeTable";
 import PokeBattle from "../pages/PokeBattle";
 
-type Generation = "generation-i" | "generation-ii" | "generation-iii" | "generation-iv" | "generation-v";
-
-
 interface PokeProps {
     initialData : FormattedPokemon[];
     initialColumns: ColumnDef<FormattedPokemon, string>[];
-    handlePokeGeneration: (gen: Generation) => void;
+    handlePokeGeneration: (gen: string) => void;
 }
 
 /** Poke Routes to navigate between pages

@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
-import { useQuery } from '@apollo/client';
 import { BrowserRouter } from 'react-router-dom';
-
-import { Pokemon, FormattedPokemon } from './interface/pokeInterface';
+import { useQuery } from '@tanstack/react-query';
 import PokemonAPI from './service/pokemonApi';
-import { LOAD_POKEMON } from './graphql/queries';
 import { pokeColumns } from './data/pokeColumns';
 import ThemeContext from './context/ThemeContext';
 import PokeNav from './components/PokeNav';
 import PokeRoutes from './routes/PokeRoutes';
 import useLocalStorage from './hooks/useLocalStorage';
+
 
 /** Main Application that renders Pokedex,
  * 
@@ -25,18 +23,24 @@ import useLocalStorage from './hooks/useLocalStorage';
  */
 function App(): JSX.Element {
   const [dark, setDark] = useLocalStorage('darkTheme', true); 
-  const [pokemon, setPokemon] = useState<FormattedPokemon[]>([]);
-  const [generation, setGeneration] = useState<string>("generation-i");
+  const [generation, setGeneration] = useState<string>("");
 
-  const { data } = useQuery(LOAD_POKEMON, {
-    variables: { generation: generation },
-    onCompleted: (data) => {
-      const formattedData = data.pokemon_v2_pokemon.map((p: Pokemon) => PokemonAPI.formatPokemon(p));
-
-      const filterPokeImages = formattedData.filter((p: FormattedPokemon) => p.image);
-      setPokemon(filterPokeImages);
-    }
+  const { data: pokemon } = useQuery({
+    queryKey: ['pokemon', generation],
+    queryFn: async () => await PokemonAPI.loadPokemon(generation)
   });
+
+  // const initialPokemon: PokeStats[] = pokeStats || [];
+
+  // const { data } = useQuery(LOAD_POKEMON, {
+  //   variables: { generation: generation },
+  //   onCompleted: (data) => {
+  //     const formattedData = data.pokemon_v2_pokemon.map((p: Pokemon) => PokemonAPI.formatPokemon(p));
+
+  //     const filterPokeImages = formattedData.filter((p: FormattedPokemon) => p.image);
+  //     setPokemon(filterPokeImages);
+  //   }
+  // });
 
   useEffect(() => {
     document.body.className = dark
@@ -51,7 +55,21 @@ function App(): JSX.Element {
 
   /** Takes in a generation type and sets state to new generation */
   const handlePokeGeneration = (generation: string): void => {
-    setGeneration(generation);
+    const generationMap = new Map([
+      ['generation-i', '0'],
+      ['generation-ii', '151'],
+      ['generation-iii', '251'],
+      ['generation-iv', '387'],
+      ['generation-v', '495'],
+    ]);
+
+    let newGeneration = '0'; 
+
+    if (generationMap.has(generation)) {
+      newGeneration = generationMap.get(generation) as string;
+    }
+
+    setGeneration(newGeneration);
   };
 
   return (
@@ -60,7 +78,7 @@ function App(): JSX.Element {
         <main>
           <PokeNav setMode={handleDarkTheme} />
           <PokeRoutes 
-            initialData={pokemon} 
+            initialData={pokemon ?? []} 
             initialColumns={pokeColumns}
             handlePokeGeneration={handlePokeGeneration} />
         </main>
