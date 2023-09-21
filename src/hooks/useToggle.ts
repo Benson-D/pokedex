@@ -1,17 +1,19 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 /**
  * Custom Hook for toggle options, useful for modals, popups, tooltips
- * 
+ *
  */
-function useToggle(defaultValue?: boolean): [boolean, (v?:boolean) => void ] {
-    const [value, setValue] = useState<boolean>(!!defaultValue);
+function useToggle(defaultValue?: boolean): [boolean, (v?: boolean) => void] {
+  const [value, setValue] = useState<boolean>(!!defaultValue);
 
-    const toggleValue = (value?: boolean) => {
-        setValue(currentValue => typeof value === 'boolean' ? value: !currentValue);
-    };
+  const toggleValue = (value?: boolean) => {
+    setValue((currentValue) =>
+      typeof value === "boolean" ? value : !currentValue,
+    );
+  };
 
-    return [value, toggleValue];
-};
+  return [value, toggleValue];
+}
 
 export default useToggle;

@@ -7,13 +7,13 @@ interface PokemonSprites {
   /** URL for the pokemon's default front sprite, if available */
   front_default: string | null;
   /** URL for the pokemon's shiny front sprite, if available */
-  front_shiny: string | null ;
+  front_shiny: string | null;
   /** URL for the pokemon's default female front sprite, if available */
   front_female: string | null;
   /** URL for the pokemon's shiny female front sprite, if available */
   front_shiny_female: string | null;
 }
-  
+
 /**
  * Interface representing individual pokemon data fetched from a GraphQL request.
  * @interface
@@ -29,23 +29,23 @@ interface Pokemon {
   pokemon_v2_pokemonmoves_aggregate: {
     aggregate: {
       count: number;
-    }
+    };
   };
-   /** An array of sprites for the pokemon */
+  /** An array of sprites for the pokemon */
   pokemon_v2_pokemonsprites: {
     sprites: string;
   }[];
-   /** An array of objects containing the pokemon's types */
+  /** An array of objects containing the pokemon's types */
   pokemon_v2_pokemontypes: {
     pokemon_v2_type: {
       /** The name of the pokemon's type */
       name: string;
-    }
+    };
   }[];
 }
 
 /**
- * Interface representing pokemon data formatted to be utilized with TanStack Tables. 
+ * Interface representing pokemon data formatted to be utilized with TanStack Tables.
  * This data is modified from the PokeAPI or a GraphQL request for this application
  * @interface
  */
@@ -64,9 +64,4 @@ interface FormattedPokemon {
   type: string;
 }
 
-
-export type {
-    FormattedPokemon,
-    Pokemon,
-    PokemonSprites
-}
+export type { FormattedPokemon, Pokemon, PokemonSprites };

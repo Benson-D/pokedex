@@ -1,34 +1,32 @@
-import { useEffect, RefObject } from 'react';
+import { useEffect, RefObject } from "react";
 
 /**
  * Custom Hook that handles click events outside of it's reference,
  * If in the area will ignore, else will call the handler
  */
 function useClickOutside<T extends HTMLElement = HTMLElement>(
-    ref: RefObject<T>,
-    handler: () => void ) {
+  ref: RefObject<T>,
+  handler: () => void,
+) {
+  useEffect(() => {
+    const listener = (event: Event) => {
+      const el = ref?.current;
 
-    useEffect(() => {
-        const listener = (event: Event) => {
-            const el = ref?.current;
-            
-            if (!el || el.contains((event?.target as Node) || null)) {
-                return;
-            }
-      
-            handler();
-        };
+      if (!el || el.contains((event?.target as Node) || null)) {
+        return;
+      }
 
-        document.addEventListener('mousedown', listener);
-        document.addEventListener('touchstart', listener);
-    
-        return () => {
-          document.removeEventListener('mousedown', listener);
-          document.removeEventListener('touchstart', listener);
-        };
+      handler();
+    };
 
-    }, [ref, handler]);
+    document.addEventListener("mousedown", listener);
+    document.addEventListener("touchstart", listener);
 
-};
+    return () => {
+      document.removeEventListener("mousedown", listener);
+      document.removeEventListener("touchstart", listener);
+    };
+  }, [ref, handler]);
+}
 
 export default useClickOutside;

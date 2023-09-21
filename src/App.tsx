@@ -1,18 +1,17 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import PokemonAPI from './service/pokemonApi';
-import { pokeColumns } from './data/pokeColumns';
-import ThemeContext from './context/ThemeContext';
-import PokeNav from './components/PokeNav';
-import PokeRoutes from './routes/PokeRoutes';
-import useLocalStorage from './hooks/useLocalStorage';
-
+import { useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import PokemonAPI from "./service/pokemonApi";
+import { pokeColumns } from "./data/pokeColumns";
+import ThemeContext from "./context/ThemeContext";
+import PokeNav from "./components/PokeNav";
+import PokeRoutes from "./routes/PokeRoutes";
+import useDarkMode from "./hooks/useDarkMode";
 
 /** Main Application that renders Pokedex,
- * 
+ *
  * Props: none
- * State: 
+ * State:
  *  - pokemon: an array of formatted Pokemon data, each containing the following fields:
  *    * id: a unique identifier for the Pokemon.
  *    * name: the name of the Pokemon.
@@ -22,48 +21,25 @@ import useLocalStorage from './hooks/useLocalStorage';
  *    * experience: the amount of experience points the Pokemon has.
  */
 function App(): JSX.Element {
-  const [dark, setDark] = useLocalStorage('darkTheme', true); 
+  const { isDarkMode, handleDarkTheme } = useDarkMode();
   const [generation, setGeneration] = useState<string>("");
 
   const { data: pokemon } = useQuery({
-    queryKey: ['pokemon', generation],
-    queryFn: async () => await PokemonAPI.loadPokemon(generation)
+    queryKey: ["pokemon", generation],
+    queryFn: async () => await PokemonAPI.loadPokemon(generation),
   });
-
-  // const initialPokemon: PokeStats[] = pokeStats || [];
-
-  // const { data } = useQuery(LOAD_POKEMON, {
-  //   variables: { generation: generation },
-  //   onCompleted: (data) => {
-  //     const formattedData = data.pokemon_v2_pokemon.map((p: Pokemon) => PokemonAPI.formatPokemon(p));
-
-  //     const filterPokeImages = formattedData.filter((p: FormattedPokemon) => p.image);
-  //     setPokemon(filterPokeImages);
-  //   }
-  // });
-
-  useEffect(() => {
-    document.body.className = dark
-          ? 'poke-dark bg-slate-800' 
-          : 'poke-light bg-white';
-  }, [dark]);
-
-   /** Toggles the application's theme between light and dark. */
-  const handleDarkTheme = (): void => {
-    setDark((prev: boolean) => !prev)
-  };
 
   /** Takes in a generation type and sets state to new generation */
   const handlePokeGeneration = (generation: string): void => {
     const generationMap = new Map([
-      ['generation-i', '0'],
-      ['generation-ii', '151'],
-      ['generation-iii', '251'],
-      ['generation-iv', '387'],
-      ['generation-v', '495'],
+      ["generation-i", "0"],
+      ["generation-ii", "151"],
+      ["generation-iii", "251"],
+      ["generation-iv", "387"],
+      ["generation-v", "495"],
     ]);
 
-    let newGeneration = '0'; 
+    let newGeneration = "0";
 
     if (generationMap.has(generation)) {
       newGeneration = generationMap.get(generation) as string;
@@ -73,18 +49,19 @@ function App(): JSX.Element {
   };
 
   return (
-    <ThemeContext.Provider value={{ dark }}>
+    <ThemeContext.Provider value={{ dark: isDarkMode }}>
       <BrowserRouter>
         <main>
           <PokeNav setMode={handleDarkTheme} />
-          <PokeRoutes 
-            initialData={pokemon ?? []} 
+          <PokeRoutes
+            initialData={pokemon ?? []}
             initialColumns={pokeColumns}
-            handlePokeGeneration={handlePokeGeneration} />
+            handlePokeGeneration={handlePokeGeneration}
+          />
         </main>
       </BrowserRouter>
     </ThemeContext.Provider>
   );
 }
 
-export default App
+export default App;

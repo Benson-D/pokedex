@@ -11,8 +11,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-} 
-
+}
 
 .poke-dark tbody .poke-link a {
   color: #0ea5e9;
@@ -32,11 +31,11 @@
 }
 
 .poke-electric {
-  background-color: #ffffa5
+  background-color: #ffffa5;
 }
 
 .poke-fairy {
-  background-color: #ffcde7
+  background-color: #ffcde7;
 }
 
 .poke-fighting {
@@ -92,11 +91,6 @@
 }
 
 tr .poke-dark {
-  background-color: #2f2f2f; 
+  background-color: #2f2f2f;
   color: #ffffff;
 }
-
-
-
-
-

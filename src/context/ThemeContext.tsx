@@ -1,5 +1,5 @@
-import { createContext } from "react"
+import { createContext } from "react";
 
-const ThemeContext = createContext<{dark: boolean}>({ dark: false});
+const ThemeContext = createContext<{ dark: boolean }>({ dark: false });
 
 export default ThemeContext;

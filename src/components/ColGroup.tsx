@@ -1,18 +1,18 @@
 /** Controls the column width of table
- * 
- * Props: 
+ *
+ * Props:
  *      width: array [25, 25, ...]
  * State: none
- * 
+ *
  */
-function ColGroup({ widths = []}: { widths: number[]}) {
+function ColGroup({ widths = [] }: { widths: number[] }) {
   return (
     <colgroup>
-        {widths.map((value, index) => (
-            <col key={index} style={{ width: `${value}%`}}></col>
-        ))}
+      {widths.map((value, index) => (
+        <col key={index} style={{ width: `${value}%` }}></col>
+      ))}
     </colgroup>
-  )
-};
+  );
+}
 
-export default ColGroup; 
+export default ColGroup;

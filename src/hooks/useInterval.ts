@@ -1,27 +1,26 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
  * Utilizes setInterval with custom hooks
- * @param callback 
- * @param {number} delay 
+ * @param callback
+ * @param {number} delay
  */
 function useInterval(callback: () => void, delay: number | null): void {
-    const savedCallback = useRef(callback);
+  const savedCallback = useRef(callback);
 
-    //Remembers previous callback
-    useEffect(() => {
-        savedCallback.current = callback;
-    }, [callback]);
+  //Remembers previous callback
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
 
-    useEffect(() => {
-        if (delay === null && delay !== 0) {
-            return; 
-        }
+  useEffect(() => {
+    if (delay === null && delay !== 0) {
+      return;
+    }
 
-        const id = setInterval(() => savedCallback.current(), delay);
-        return () => clearInterval(id);
-    }, [delay])
-
-};
+    const id = setInterval(() => savedCallback.current(), delay);
+    return () => clearInterval(id);
+  }, [delay]);
+}
 
 export default useInterval;
