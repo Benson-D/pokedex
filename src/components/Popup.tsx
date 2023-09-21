@@ -53,8 +53,8 @@ function Popup({ label, classStyle = '', children }: PopupProps) {
             <div className={`absolute left-0 z-10 mt-2 w-56 origin-top-right 
             rounded-md bg-white shadow-lg 
             ${value 
-            ? 'transition ease-out duration-200 transform opacity-100 scale-100' 
-            : 'transition ease-in duration-75 transform opacity-0 scale-95 -z-20'}
+            ? 'visible transition ease-out duration-200 transform opacity-100 scale-100' 
+            : 'invisible transition ease-in duration-75 transform opacity-0 scale-95 -z-20'}
             ring-1 ring-black ring-opacity-5 focus:outline-none`}
                 role="menu" 
                 aria-orientation="vertical" 
