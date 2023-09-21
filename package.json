@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "lint-staged": {
-    "*.--write": "prettier --ignore-unknown . --write"
+    "*": "prettier --ignore-unknown . --write"
   },
   "dependencies": {
     "@apollo/client": "^3.8.4",
