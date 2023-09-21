@@ -1,34 +1,42 @@
 {
   "name": "pokedex",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "build-css": "npx tailwindcss -i ./src/index.css -o ./src/styles/output.css --watch",
-    "cypress": "cypress open"
+    "format": "exec prettier . --write",
+    "cypress": "cypress open",
+    "prepare": "husky install"
+  },
+  "lint-staged": {
+    "*.--write": "prettier --ignore-unknown . --write"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.3",
-    "@tanstack/react-query": "^4.35.0",
-    "@tanstack/react-query-devtools": "^4.35.0",
-    "@tanstack/react-table": "^8.9.8",
+    "@apollo/client": "^3.8.4",
+    "@tanstack/react-query": "^4.35.3",
+    "@tanstack/react-query-devtools": "^4.35.3",
+    "@tanstack/react-table": "^8.10.1",
     "axios": "^1.5.0",
-    "graphql": "^16.8.0",
+    "graphql": "^16.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
-    "react-router-dom": "^6.15.0"
+    "react-router-dom": "^6.16.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.22",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.4",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "cypress": "^12.7.0",
-    "postcss": "^8.4.29",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "postcss": "^8.4.30",
+    "prettier": "3.0.3",
     "tailwindcss": "^3.3.3",
     "typescript": "^5.2.2",
     "vite": "^4.4.9"
