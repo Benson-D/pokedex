@@ -9,14 +9,15 @@ import {
   getFilteredRowModel,
 } from "@tanstack/react-table";
 import { FormattedPokemon } from "../interface/pokeInterface";
-import TableHeader from "../components/TableHeader";
-import TableBody from "../components/TableBody";
-import PaginateButton from "../components/PaginateButton";
-import ColGroup from "../components/ColGroup";
-import TableAdmin from "../components/TableAdmin";
 import useDebounce from "../hooks/useDebounce";
 import ThemeContext from "../context/ThemeContext";
 import { RiLoader4Line } from "react-icons/ri";
+// Table Components
+import TableHeader from "../features/table/TableHeader";
+import TableBody from "../features/table/TableBody";
+import PaginateButton from "../features/table/PaginateButton";
+import ColGroup from "../components/ColGroup";
+import TableAdmin from "../features/table/TableAdmin";
 
 interface PokeProps {
   initialData: FormattedPokemon[];
@@ -25,17 +26,17 @@ interface PokeProps {
 }
 
 /**
- * Main Pokemon Table that renders information provided by pokemon api,
- * Utilizes tanstack table
+ * Renders a responsive, sortable, and paginated Pokémon data table.
  *
- * Props:
- *      initialData: [{ name, id, experience, image, type}, ...]
- *      initialColumns: {tanstack table}
- *      handlePokeGeneration: (gen: Generation) => void;
+ * Utilizes TanStack Table for data management, supports debounced global search filtering,
+ * and provides pagination and dynamic theming through context.
  *
- * State:
- *      sorting: array
- *      globalFilter: string
+ * @component
+ * @param {Object} props
+ * @param {FormattedPokemon[]} props.initialData - Array of Pokémon data formatted for display.
+ * @param {ColumnDef<FormattedPokemon, string>[]} props.initialColumns - Column definitions for TanStack Table.
+ * @param {(gen: string) => void} props.handlePokeGeneration - Callback function triggered when the user selects a Pokémon generation.
+ *
  */
 function PokeTable({
   initialData,
@@ -46,18 +47,18 @@ function PokeTable({
   const data = useMemo<FormattedPokemon[]>(() => initialData, [initialData]);
   const columns = useMemo<ColumnDef<FormattedPokemon, string>[]>(
     () => initialColumns,
-    [],
+    [initialColumns],
   );
 
   // Manage the table's sorting and filtering state.
   const [sorting, setSorting] = useState<SortingState>([]);
   const [globalFilter, setGlobalFilter] = useState("");
-  const searchValue = useDebounce(globalFilter);
+  const debouncedFilter = useDebounce(globalFilter);
 
   // Get the current theme from context.
   const { dark } = useContext(ThemeContext);
 
-  // Create a new instance using the provided data, columns, and state.
+  // Create the TanStack Table instance.
   const table = useReactTable({
     data,
     columns,
@@ -69,7 +70,7 @@ function PokeTable({
     getCoreRowModel: getCoreRowModel(),
     state: {
       sorting,
-      globalFilter: searchValue,
+      globalFilter: debouncedFilter,
     },
     onGlobalFilterChange: setGlobalFilter,
     onSortingChange: setSorting,
@@ -102,8 +103,9 @@ function PokeTable({
       />
       <div className="overflow-auto">
         <table
-          className={`w-full table-auto cursor-pointer min-w-[800px]
-                       ${dark ? "bg-slate-700" : "bg-white"}`}
+          className={`w-full table-auto cursor-pointer min-w-[800px] ${
+            dark ? "bg-slate-700" : "bg-white"
+          }`}
         >
           <ColGroup widths={[15, 17, 19, 15, 15, 19]} />
           <TableHeader headerGroups={table.getHeaderGroups} />
