@@ -4,6 +4,7 @@ import {
   useContext,
   cloneElement,
   ReactNode,
+  ReactElement,
 } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import ThemeContext from "../context/ThemeContext";
@@ -13,7 +14,7 @@ import useToggle from "../hooks/useToggle";
 interface PopupProps {
   label: string;
   classStyle?: string;
-  children: ReactNode;
+  children: JSX.Element;
 }
 
 /**
@@ -75,8 +76,7 @@ function Popup({ label, classStyle = "", children }: PopupProps) {
         aria-orientation="vertical"
         aria-labelledby="menu-button"
       >
-        {children &&
-          cloneElement(children as React.ReactElement, { toggleValue })}
+        {cloneElement(children, { toggleValue }) as React.ReactNode}
       </div>
     </section>
   );
