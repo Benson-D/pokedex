@@ -33,7 +33,12 @@ function TableBody({
               className={`text-xs 
                         ${dark ? "text-white" : "text-black"}`}
             >
-              {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              {
+                flexRender(
+                  cell.column.columnDef.cell,
+                  cell.getContext(),
+                ) as React.ReactNode
+              }
             </td>
           ))}
         </tr>

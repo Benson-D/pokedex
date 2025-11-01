@@ -30,10 +30,12 @@ function TableHeader({
                   className={`flex justify-between text-xs 
                                    ${dark ? "text-white" : "text-black"}`}
                 >
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext(),
-                  )}
+                  {
+                    flexRender(
+                      header.column.columnDef.header,
+                      header.getContext(),
+                    ) as React.ReactNode
+                  }
                   {{
                     asc: <BiSortUp />,
                     desc: <BiSortDown />,
