@@ -3,11 +3,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { FormattedPokemon } from "../interface/pokeInterface";
 import PokeTable from "../pages/PokeTable";
 import PokeBattle from "../pages/PokeBattle";
+import { GenerationKey } from "../types/pokeTypes";
 
 interface PokeProps {
   initialData: FormattedPokemon[];
   initialColumns: ColumnDef<FormattedPokemon, string>[];
-  handlePokeGeneration: (gen: string) => void;
+  handlePokeGeneration: (gen: GenerationKey) => void;
 }
 
 /** Poke Routes to navigate between pages

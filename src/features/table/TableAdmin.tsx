@@ -5,12 +5,13 @@ import { FormattedPokemon } from "../../interface/pokeInterface";
 import Popup from "../../components/Popup";
 import ListItems from "../../components/ListItems";
 import ThemeContext from "../../context/ThemeContext";
+import { GenerationKey } from "../../types/pokeTypes";
 
 interface TableAdminProps {
   table: Table<FormattedPokemon>;
   globalFilter: string;
   handleFilter: (evt: React.ChangeEvent<HTMLInputElement>) => void;
-  handlePokeGeneration: (gen: string) => void;
+  handlePokeGeneration: (gen: GenerationKey) => void;
 }
 
 /**
@@ -41,9 +42,15 @@ function TableAdmin({
   );
 
   // Generate an array of generation options with "generation-" label
-  const generationOptions = ["i", "ii", "iii", "iv", "v"].map(
-    (value) => `generation-${value}`,
-  );
+  const generationOptions: GenerationKey[] = [
+    "kanto",
+    "johto",
+    "hoenn",
+    "sinnoh",
+    "unova",
+    "alola",
+    "galar",
+  ];
 
   // Callback function for handling changes to the page size dropdown
   const setTablePageSize = (selectedOption: string = ""): void => {

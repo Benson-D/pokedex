@@ -18,11 +18,12 @@ import TableBody from "../features/table/TableBody";
 import PaginateButton from "../features/table/PaginateButton";
 import ColGroup from "../components/ColGroup";
 import TableAdmin from "../features/table/TableAdmin";
+import { GenerationKey } from "../types/pokeTypes";
 
 interface PokeProps {
   initialData: FormattedPokemon[];
   initialColumns: ColumnDef<FormattedPokemon, string>[];
-  handlePokeGeneration: (gen: string) => void;
+  handlePokeGeneration: (gen: GenerationKey) => void;
 }
 
 /**
@@ -35,7 +36,7 @@ interface PokeProps {
  * @param {Object} props
  * @param {FormattedPokemon[]} props.initialData - Array of Pokémon data formatted for display.
  * @param {ColumnDef<FormattedPokemon, string>[]} props.initialColumns - Column definitions for TanStack Table.
- * @param {(gen: string) => void} props.handlePokeGeneration - Callback function triggered when the user selects a Pokémon generation.
+ * @param {(gen: GenerationKey) => void} props.handlePokeGeneration - Callback function triggered when the user selects a Pokémon generation.
  *
  */
 function PokeTable({

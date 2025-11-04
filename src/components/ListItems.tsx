@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import ThemeContext from "../context/ThemeContext";
+import { GenerationKey } from "../types/pokeTypes";
 
-interface ListItemsProps {
-  mapData: string[];
-  handleList: (data: string) => void;
+interface ListItemsProps<T> {
+  mapData: T[];
+  handleList: (data: T) => void;
   toggleValue?: (value?: boolean) => void;
 }
 
@@ -11,10 +12,14 @@ interface ListItemsProps {
  * A React component that displays a list of items and allows the user to select an item from the list.
  * The list items can be filtered by generation and styled according to the current theme (light/dark).
  */
-function ListItems({ mapData, handleList, toggleValue }: ListItemsProps) {
+function ListItems<T extends string>({
+  mapData,
+  handleList,
+  toggleValue,
+}: ListItemsProps<T>) {
   const { dark } = useContext(ThemeContext);
 
-  const handleItemClick = (data: string) => {
+  const handleItemClick = (data: T) => {
     if (toggleValue) toggleValue();
     handleList(data);
   };

@@ -5,7 +5,7 @@ import {
   PokemonSprites,
 } from "../interface/pokeInterface";
 
-const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon?limit=151`;
+const MAIN_URL: string = `https://pokeapi.co/api/v2/pokemon`;
 
 /**
  * Represents the output of a single Pokémon in a list.
@@ -32,10 +32,11 @@ class PokemonAPI {
    * @throws An error if the API request fails.
    */
   public static async getPokemonList(
-    offset = "",
+    limit = 151,
+    offset = 0,
   ): Promise<PokemonListOutput[]> {
     try {
-      const generationURL = offset ? `${MAIN_URL}&offset=${offset}` : MAIN_URL;
+      const generationURL = `${MAIN_URL}?limit=${limit}&offset=${offset}`;
 
       const pokemonList = await axios({ url: generationURL });
       return pokemonList.data?.results;
@@ -99,9 +100,10 @@ class PokemonAPI {
    * such as its base experience, height, and weight.
    */
   public static async loadPokemon(
-    generation: string,
+    limit: number,
+    offset: number,
   ): Promise<FormattedPokemon[]> {
-    const pokeNames = await this.getPokemonList(generation);
+    const pokeNames = await this.getPokemonList(limit, offset);
     const pokemon = await this.getPokemonStat(pokeNames);
     return pokemon;
   }

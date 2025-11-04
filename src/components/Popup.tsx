@@ -1,11 +1,4 @@
-import {
-  useRef,
-  useCallback,
-  useContext,
-  cloneElement,
-  ReactNode,
-  ReactElement,
-} from "react";
+import { useRef, useCallback, useContext, cloneElement } from "react";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import ThemeContext from "../context/ThemeContext";
 import useClickOutside from "../hooks/useClickOutside";

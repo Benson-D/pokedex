@@ -7,6 +7,19 @@ import ThemeContext from "./context/ThemeContext";
 import PokeNav from "./components/PokeNav";
 import PokeRoutes from "./routes/PokeRoutes";
 import useDarkMode from "./hooks/useDarkMode";
+import { GenerationKey } from "./types/pokeTypes";
+
+const generationMap: Record<GenerationKey, { limit: number; offset: number }> =
+  {
+    kanto: { limit: 151, offset: 0 },
+    johto: { limit: 100, offset: 151 },
+    hoenn: { limit: 135, offset: 251 },
+    sinnoh: { limit: 107, offset: 386 },
+    unova: { limit: 156, offset: 493 },
+    kalos: { limit: 72, offset: 649 },
+    alola: { limit: 86, offset: 723 },
+    galar: { limit: 89, offset: 809 },
+  };
 
 /** Main Application that renders Pokedex,
  *
@@ -22,30 +35,22 @@ import useDarkMode from "./hooks/useDarkMode";
  */
 function App(): JSX.Element {
   const { isDarkMode, handleDarkTheme } = useDarkMode();
-  const [generation, setGeneration] = useState<string>("");
+  const [generation, setGeneration] = useState<{
+    limit: number;
+    offset: number;
+  }>({ limit: 151, offset: 0 });
 
   const { data: pokemon } = useQuery({
     queryKey: ["pokemon", generation],
-    queryFn: async () => await PokemonAPI.loadPokemon(generation),
+    queryFn: async () =>
+      await PokemonAPI.loadPokemon(generation.limit, generation.offset),
   });
 
   /** Takes in a generation type and sets state to new generation */
-  const handlePokeGeneration = (generation: string): void => {
-    const generationMap = new Map([
-      ["generation-i", "0"],
-      ["generation-ii", "151"],
-      ["generation-iii", "251"],
-      ["generation-iv", "387"],
-      ["generation-v", "495"],
-    ]);
-
-    let newGeneration = "0";
-
-    if (generationMap.has(generation)) {
-      newGeneration = generationMap.get(generation) as string;
+  const handlePokeGeneration = (generation: GenerationKey): void => {
+    if (generationMap[generation]) {
+      setGeneration(generationMap[generation]);
     }
-
-    setGeneration(newGeneration);
   };
 
   return (
